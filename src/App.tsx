@@ -1,22 +1,23 @@
 import React from 'react';
 import { Layout } from 'antd';
+import Logo from './images/logo.png';
 
 const {
-  Header, Footer, Sider, Content,
+  Header, Sider, Content,
 } = Layout;
 function App() {
   return (
     <Layout className="main">
       <Header className="header">
         <div className="logo">
-          <img src="" alt="logo" />
+          <img src={Logo} alt="logo" />
         </div>
+        <h1 className="header__title">Управление ИТ активами</h1>
       </Header>
       <Layout hasSider>
         <Sider>Sider</Sider>
         <Content>Content</Content>
       </Layout>
-      <Footer>Footer</Footer>
     </Layout>
   );
 }
