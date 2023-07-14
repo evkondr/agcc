@@ -1,9 +1,10 @@
 import React from 'react';
 import { Layout } from 'antd';
 import Logo from './images/logo.png';
+import LeftSidebar from './components/LeftSidebar';
 
 const {
-  Header, Sider, Content,
+  Header, Content,
 } = Layout;
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <h1 className="header__title">Управление ИТ активами</h1>
       </Header>
       <Layout hasSider>
-        <Sider>Sider</Sider>
+        <LeftSidebar />
         <Content>Content</Content>
       </Layout>
     </Layout>
