@@ -10,7 +10,7 @@ export interface User{
 }
 export interface History{
   id:number,
-  prevOwner: User;
+  prevOwner: string;
   date:string,
   comments:string,
   lastModified:string
@@ -40,7 +40,19 @@ export const users: User[] = [
 
 export const assets: assetModel[] = [
   {
-    id: 1, type: 'Монитор', model: 'Lenovo ThinkCenter TI24-10', serialNumber: 'VNA3031A503', owner: null, history: null, status: assetStatus.notAssigned,
+    id: 1,
+    type: 'Монитор',
+    model: 'Lenovo ThinkCenter TI24-10',
+    serialNumber: 'VNA3031A503',
+    owner: null,
+    history: [{
+      id: 1,
+      prevOwner: 'Иванов Иван Иванович',
+      date: '21.11.2022',
+      comments: 'Не включается',
+      lastModified: 'Кондратьев Евгений Александрович',
+    }],
+    status: assetStatus.notAssigned,
   },
   {
     id: 2, type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A503', owner: null, history: null, status: assetStatus.notAssigned,

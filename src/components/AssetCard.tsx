@@ -13,6 +13,7 @@ import {
 } from 'antd';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { getCurrentAsset, resetCurrentAsset } from '../redux/features/assetSlice';
+import HistoryTable from './HistoryTable';
 
 const { Option } = Select;
 
@@ -54,9 +55,9 @@ const AssetCard = () => {
         </Form.Item>
         <Form.Item label="Расположение" name="owner">
           <Select>
-            <Option value="red">Red</Option>
-            <Option value="green">Green</Option>
-            <Option value="blue">Blue</Option>
+            <Option value="red">Иванов</Option>
+            <Option value="green">Петров</Option>
+            <Option value="blue">Сидоров</Option>
           </Select>
         </Form.Item>
         <Form.Item>
@@ -64,9 +65,13 @@ const AssetCard = () => {
         </Form.Item>
       </Form>
       <Row>
-        <div>
-          <h5>История</h5>
-        </div>
+        {currentAsset.history && currentAsset.history.length > 0
+          && (
+          <div style={{ width: '90%' }}>
+            <h5 style={{ fontSize: '25px' }}>История</h5>
+            <HistoryTable history={currentAsset.history} />
+          </div>
+          )}
       </Row>
     </>
   );
