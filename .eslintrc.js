@@ -37,5 +37,6 @@ module.exports = {
     'import/no-unresolved': 0,
     'import/extensions': 0,
     'linebreak-style': 0,
+    'react/function-component-definition': 0,
   },
 };

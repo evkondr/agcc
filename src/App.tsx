@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layout } from 'antd';
+import { Outlet } from 'react-router-dom';
 import Logo from './images/logo.png';
 import LeftSidebar from './components/LeftSidebar';
 
@@ -17,7 +18,9 @@ function App() {
       </Header>
       <Layout hasSider>
         <LeftSidebar />
-        <Content>Content</Content>
+        <Content className="content">
+          <Outlet />
+        </Content>
       </Layout>
     </Layout>
   );
