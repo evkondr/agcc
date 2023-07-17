@@ -43,3 +43,10 @@ code {
 .content{
   padding: 20px;
 }
+
+@media screen and (max-width: 1200px) {
+  .main{
+    max-width: 1200px!important;
+    width: 1200px;
+  }
+}

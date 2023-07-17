@@ -1,6 +1,8 @@
+/* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Button,
   Form,
@@ -9,22 +11,36 @@ import {
   Col,
   Row,
 } from 'antd';
+import { useAppSelector, useAppDispatch } from '../redux/hooks';
+import { getCurrentAsset, resetCurrentAsset } from '../redux/features/assetSlice';
 
 const { Option } = Select;
 
 const AssetCard = () => {
+  const { id } = useParams();
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const onEditHandler = () => {
     setIsEdit(!isEdit);
   };
+  const { currentAsset } = useAppSelector((state) => state.asset);
+  const dispatch = useAppDispatch();
+  useLayoutEffect(() => {
+    if (id) {
+      dispatch(getCurrentAsset(+id));
+      return () => {
+        dispatch(resetCurrentAsset());
+      };
+    }
+  }, [dispatch, id]);
+  if (!currentAsset) {
+    return <div>Загрузка...</div>;
+  }
   return (
     <>
       <Form
         layout="vertical"
         style={{ maxWidth: '350px' }}
-        initialValues={{
-          id: 5, type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A503', owner: null,
-        }}
+        initialValues={currentAsset}
         disabled={!isEdit}
       >
         <Form.Item label="Модель" name="model">
