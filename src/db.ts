@@ -5,12 +5,15 @@ export interface User{
   name:string,
   secondName:string,
   suranme:string,
+  email:string,
+  city:string
 }
 export interface History{
   id:number,
   prevOwner: User;
   date:string,
-  comments:string
+  comments:string,
+  lastModified:string
 }
 export enum assetStatus{
   notConfirmed = 'Не подтверждено',
@@ -28,10 +31,10 @@ export interface assetModel{
 }
 export const users: User[] = [
   {
-    id: 1, name: 'Иван', secondName: 'Иванович', suranme: 'Иванов',
+    id: 1, name: 'Иван', secondName: 'Иванович', suranme: 'Иванов', email: 'user@mail.ru', city: 'Москва',
   },
   {
-    id: 2, name: 'Пётр', secondName: 'Петрович', suranme: 'Петров',
+    id: 2, name: 'Пётр', secondName: 'Петрович', suranme: 'Петров', email: 'user@mail.ru', city: 'Москва',
   },
 ];
 

@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom';
+import { store } from './redux/store';
 import './index.css';
 import App from './App';
-import AssetsTable from './components/AssetsTable';
-import { assets } from './db';
 import AssetCard from './components/AssetCard';
+import AssetsPage from './components/pages/AssetsPage';
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <AssetsTable assets={assets} />,
+        element: <AssetsPage />,
       },
       {
         path: 'assets/:id',
@@ -29,4 +30,4 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
-root.render(<RouterProvider router={router} />);
+root.render(<Provider store={store}><RouterProvider router={router} /></Provider>);
