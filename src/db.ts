@@ -4,9 +4,12 @@ export interface User{
   id:number,
   name:string,
   secondName:string,
-  suranme:string,
+  surname:string,
   email:string,
-  city:string
+  city:string;
+  fullName: string;
+  // eslint-disable-next-line no-use-before-define
+  assets: assetModel[] | []
 }
 export interface History{
   id:number,
@@ -27,14 +30,15 @@ export interface assetModel{
   serialNumber:string,
   owner:User | null
   history:History[] | null
-  status:assetStatus
+  status:assetStatus,
+  city:string
 }
 export const users: User[] = [
   {
-    id: 1, name: 'Иван', secondName: 'Иванович', suranme: 'Иванов', email: 'user@mail.ru', city: 'Москва',
+    id: 1, name: 'Иван', secondName: 'Иванович', surname: 'Иванов', email: 'user@mail.ru', city: 'Москва', fullName: 'Иван Иван Иванович', assets: [],
   },
   {
-    id: 2, name: 'Пётр', secondName: 'Петрович', suranme: 'Петров', email: 'user@mail.ru', city: 'Москва',
+    id: 2, name: 'Пётр', secondName: 'Петрович', surname: 'Петров', email: 'user@mail.ru', city: 'Москва', fullName: 'Петров Пётр Петрович', assets: [],
   },
 ];
 
@@ -53,17 +57,18 @@ export const assets: assetModel[] = [
       lastModified: 'Кондратьев Евгений Александрович',
     }],
     status: assetStatus.notAssigned,
+    city: 'Москва',
   },
   {
-    id: 2, type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A503', owner: null, history: null, status: assetStatus.notAssigned,
+    id: 2, type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A503', owner: null, history: null, status: assetStatus.notAssigned, city: 'Москва',
   },
   {
-    id: 3, type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A503', owner: null, history: null, status: assetStatus.notAssigned,
+    id: 3, type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A503', owner: null, history: null, status: assetStatus.notAssigned, city: 'Москва',
   },
   {
-    id: 4, type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A503', owner: null, history: null, status: assetStatus.notAssigned,
+    id: 4, type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A503', owner: null, history: null, status: assetStatus.notAssigned, city: 'Москва',
   },
   {
-    id: 5, type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A503', owner: null, history: null, status: assetStatus.notAssigned,
+    id: 5, type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A503', owner: null, history: null, status: assetStatus.notAssigned, city: 'Москва',
   },
 ];
