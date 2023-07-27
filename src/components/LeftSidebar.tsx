@@ -22,11 +22,24 @@ const menuItems:MenuItem[] = [
     getMenuItems(<NavLink to="/assets/add">Добавить</NavLink>, 'sub6', <DesktopOutlined />),
   ]),
 ];
-
-function LeftSidebar() {
+interface LeftSidebarProps{
+  // eslint-disable-next-line no-unused-vars
+  setContentMargin: (value:number) => void,
+  contentMargin: number
+}
+function LeftSidebar({ setContentMargin, contentMargin }:LeftSidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
+  const onCollapse = () => {
+    if (contentMargin === 200) {
+      setCollapsed(true);
+      setContentMargin(80);
+    } else {
+      setCollapsed(false);
+      setContentMargin(200);
+    }
+  };
   return (
-    <Sider collapsible collapsed={collapsed} onCollapse={() => { setCollapsed(!collapsed); }}>
+    <Sider className="sidebar" collapsible collapsed={collapsed} onCollapse={onCollapse}>
       <div className="demo-logo-vertical" />
       <Menu className="menu" theme="dark" defaultSelectedKeys={['1']} mode="inline" items={menuItems} />
     </Sider>
