@@ -27,7 +27,7 @@ const AssetCard = () => {
   const dispatch = useAppDispatch();
   useLayoutEffect(() => {
     if (id) {
-      dispatch(getCurrentAsset(+id));
+      dispatch(getCurrentAsset(id));
       return () => {
         dispatch(resetCurrentAsset());
       };

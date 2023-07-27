@@ -2,13 +2,17 @@ import React, { useEffect, useState } from 'react';
 import {
   Button, Form, Input, AutoComplete,
 } from 'antd';
+import { v4 as uuidv4 } from 'uuid';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { findUserBySurname } from '../../redux/features/userSlice';
+import { assetModel, assetStatus } from '../../db';
+import { addNewAsset } from '../../redux/features/assetSlice';
 
 const NewAssetPage = () => {
   const [options, setOptions] = useState<{ value: string; label: string }[]>([]);
   const [userValue, setUserValue] = useState<string>('');
   const { foundUsers } = useAppSelector((state) => state.users);
+  const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const onChange = (data: string) => {
     setUserValue(data);
@@ -28,6 +32,23 @@ const NewAssetPage = () => {
     }
     setOptions(res);
   };
+  const onFinish = (values: assetModel) => {
+    form.resetFields();
+    const newAsset:assetModel = {
+      ...values,
+      id: uuidv4(),
+      city: 'Москва',
+      status: assetStatus.notAssigned,
+      history: [{
+        id: uuidv4(),
+        prevOwner: '',
+        comments: 'Создал',
+        date: new Date().toLocaleString(),
+        lastModified: 'Кондратьев ЕА',
+      }],
+    };
+    dispatch(addNewAsset(newAsset));
+  };
   useEffect(() => {
     dispatch(findUserBySurname(userValue));
   }, [userValue, dispatch]);
@@ -36,6 +57,8 @@ const NewAssetPage = () => {
       layout="vertical"
       style={{ maxWidth: '350px' }}
       initialValues={{}}
+      onFinish={onFinish}
+      form={form}
     >
       <Form.Item label="Модель" name="model">
         <Input />
@@ -47,10 +70,10 @@ const NewAssetPage = () => {
         <Input />
       </Form.Item>
       <Form.Item label="Расположение" name="owner">
-        <AutoComplete onSearch={handleSearch} onSelect={onSelect} onChange={onChange} placeholder="input here" options={options} value={userValue} />
+        <AutoComplete onSearch={handleSearch} onSelect={onSelect} onChange={onChange} placeholder="Введите фамилию, нажмите пробел" options={options} value={userValue} />
       </Form.Item>
       <Form.Item>
-        <Button>Добавить</Button>
+        <Button htmlType="submit">Добавить</Button>
       </Form.Item>
     </Form>
   );

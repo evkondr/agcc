@@ -18,15 +18,18 @@ export const assetsSlice = createSlice({
   name: 'assets',
   initialState,
   reducers: {
-    getCurrentAsset: (state, action: PayloadAction<number>):any => {
+    getCurrentAsset: (state, action: PayloadAction<string>):any => {
       state.currentAsset = state.assets.find((el) => el.id === action.payload);
     },
     resetCurrentAsset: (state) => {
       state.currentAsset = undefined;
     },
+    addNewAsset: (state, aciton: PayloadAction<assetModel>) => {
+      state.assets.push(aciton.payload);
+    },
   },
 });
 
-export const { getCurrentAsset, resetCurrentAsset } = assetsSlice.actions;
+export const { getCurrentAsset, resetCurrentAsset, addNewAsset } = assetsSlice.actions;
 
 export default assetsSlice.reducer;
