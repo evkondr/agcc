@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Button, Form, Input, AutoComplete,
+  Button, Form, Input, AutoComplete, Select,
 } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { findUserBySurname } from '../../redux/features/userSlice';
-import { AssetModel, assetStatus } from '../../db';
+import { AssetModel, assetStatus, cities } from '../../db';
 import { addNewAsset } from '../../redux/features/assetSlice';
 
+const { Option } = Select;
 const NewAssetPage = () => {
   const [options, setOptions] = useState<{ value: string; label: string }[]>([]);
   const [userValue, setUserValue] = useState<string>('');
@@ -37,7 +38,6 @@ const NewAssetPage = () => {
     const newAsset:AssetModel = {
       ...values,
       id: uuidv4(),
-      city: 'Москва',
       status: assetStatus.notAssigned,
       history: [{
         id: uuidv4(),
@@ -68,6 +68,11 @@ const NewAssetPage = () => {
       </Form.Item>
       <Form.Item label="Серийный номер" name="serialNumber">
         <Input />
+      </Form.Item>
+      <Form.Item label="Город" name="city">
+        <Select>
+          {cities.map((item) => <Option key={item.id} value={item.name}>{item.name}</Option>)}
+        </Select>
       </Form.Item>
       <Form.Item label="Расположение" name="owner">
         <AutoComplete onSearch={handleSearch} onSelect={onSelect} onChange={onChange} placeholder="Введите фамилию, нажмите пробел" options={options} value={userValue} />

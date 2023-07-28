@@ -53,6 +53,9 @@ const AssetCard = () => {
         <Form.Item label="Серийный номер" name="serialNumber">
           <Input />
         </Form.Item>
+        <Form.Item label="Город" name="city">
+          <Input />
+        </Form.Item>
         <Form.Item label="Расположение" name="owner">
           <Select>
             <Option value="red">Иванов</Option>
