@@ -33,6 +33,10 @@ export interface assetModel{
   status:assetStatus,
   city:string
 }
+export interface City{
+  id:string,
+  name:string,
+}
 export const users: User[] = [
   {
     id: '1', name: 'Иван', secondName: 'Иванович', surname: 'Иванов', email: 'user@mail.ru', city: 'Москва', fullName: 'Иван Иван Иванович', assets: [],
@@ -70,5 +74,15 @@ export const assets: assetModel[] = [
   },
   {
     id: '5', type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A503', owner: null, history: null, status: assetStatus.notAssigned, city: 'Москва',
+  },
+];
+export const cities:City[] = [
+  {
+    id: '1',
+    name: 'Москва',
+  },
+  {
+    id: '2',
+    name: 'Свободный',
   },
 ];
