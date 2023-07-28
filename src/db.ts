@@ -9,7 +9,7 @@ export interface User{
   city:string;
   fullName: string;
   // eslint-disable-next-line no-use-before-define
-  assets: assetModel[] | []
+  assets: AssetModel[] | []
 }
 export interface History{
   id?:string,
@@ -23,7 +23,7 @@ export enum assetStatus{
   confirmed = 'Подтверждено',
   notAssigned = 'Не назначено'
 }
-export interface assetModel{
+export interface AssetModel{
   id?:string,
   type:string,
   model:string,
@@ -46,7 +46,7 @@ export const users: User[] = [
   },
 ];
 
-export const assets: assetModel[] = [
+export const assets: AssetModel[] = [
   {
     id: '1',
     type: 'Монитор',

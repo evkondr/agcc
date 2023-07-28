@@ -5,7 +5,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { findUserBySurname } from '../../redux/features/userSlice';
-import { assetModel, assetStatus } from '../../db';
+import { AssetModel, assetStatus } from '../../db';
 import { addNewAsset } from '../../redux/features/assetSlice';
 
 const NewAssetPage = () => {
@@ -32,9 +32,9 @@ const NewAssetPage = () => {
     }
     setOptions(res);
   };
-  const onFinish = (values: assetModel) => {
+  const onFinish = (values: AssetModel) => {
     form.resetFields();
-    const newAsset:assetModel = {
+    const newAsset:AssetModel = {
       ...values,
       id: uuidv4(),
       city: 'Москва',

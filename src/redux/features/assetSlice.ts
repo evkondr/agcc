@@ -3,11 +3,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { assetModel, assets } from '../../db';
+import { AssetModel, assets } from '../../db';
 
 interface assetsState {
-  assets: assetModel[],
-  currentAsset: assetModel | undefined
+  assets: AssetModel[],
+  currentAsset: AssetModel | undefined
 }
 
 const initialState: assetsState = {
@@ -24,7 +24,7 @@ export const assetsSlice = createSlice({
     resetCurrentAsset: (state) => {
       state.currentAsset = undefined;
     },
-    addNewAsset: (state, aciton: PayloadAction<assetModel>) => {
+    addNewAsset: (state, aciton: PayloadAction<AssetModel>) => {
       state.assets.push(aciton.payload);
     },
   },
