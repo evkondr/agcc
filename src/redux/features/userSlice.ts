@@ -21,9 +21,12 @@ export const usersSlice = createSlice({
     findUserBySurname: (state, action: PayloadAction<string>) => {
       state.foundUsers = state.users.filter((user) => user.surname === action.payload);
     },
+    getUsersByLocation: (state, action: PayloadAction<string>) => {
+      state.foundUsers = state.users.filter((user) => user.city === action.payload);
+    },
   },
 });
 
-export const { getAllUsers, findUserBySurname } = usersSlice.actions;
+export const { getAllUsers, findUserBySurname, getUsersByLocation } = usersSlice.actions;
 
 export default usersSlice.reducer;
