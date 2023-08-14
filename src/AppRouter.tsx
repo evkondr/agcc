@@ -5,6 +5,7 @@ import AssetsPage from './components/pages/AssetsPage';
 import AssetCard from './components/AssetCard';
 import NewAssetPage from './components/pages/NewAssetPage';
 import UsersPage from './components/pages/UsersPage';
+import AddUserPage from './components/pages/AddUserPage';
 
 const AppRouter = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const AppRouter = createBrowserRouter([
       {
         path: 'users/',
         element: <UsersPage />,
+      },
+      {
+        path: 'users/add',
+        element: <AddUserPage />,
       },
     ],
   },
