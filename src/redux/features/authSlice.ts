@@ -18,8 +18,8 @@ export const authSlice = createSlice({
       const token = localStorage.getItem('demoToken');
       state.demoToken = token;
     },
-    setDemoToken: (state) => {
-      state.demoToken = 'demo12345';
+    setDemoToken: () => {
+      localStorage.setItem('demoToken', 'demo123');
     },
   },
 });
