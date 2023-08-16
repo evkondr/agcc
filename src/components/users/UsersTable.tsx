@@ -3,7 +3,7 @@ import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { UnorderedListOutlined } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
-import { User } from '../db';
+import { User } from '../../db';
 
 interface UsersTableProps{
   users:User[]

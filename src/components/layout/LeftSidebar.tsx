@@ -5,7 +5,7 @@ import {
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { NavLink } from 'react-router-dom';
-import getMenuItems from '../uitls/getMenuItems';
+import getMenuItems from '../../uitls/getMenuItems';
 
 type MenuItem = Required<MenuProps>['items'][number];
 

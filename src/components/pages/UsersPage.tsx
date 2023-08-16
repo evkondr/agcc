@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
-import UsersTable from '../UsersTable';
+import UsersTable from '../users/UsersTable';
 import { getUsersByLocation } from '../../redux/features/userSlice';
 
 const UsersPage = () => {

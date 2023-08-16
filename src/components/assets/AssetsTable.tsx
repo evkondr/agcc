@@ -2,7 +2,7 @@ import React from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { NavLink } from 'react-router-dom';
-import { AssetModel } from '../db';
+import { AssetModel } from '../../db';
 
 interface tableProps {
   assets: AssetModel[]

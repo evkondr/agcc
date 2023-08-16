@@ -2,7 +2,7 @@ import {
   Form, Input, Select, Button,
 } from 'antd';
 import React from 'react';
-import { User } from '../db';
+import { User } from '../../db';
 
 const ChangeAddUserForm = () => {
   const onFinish = (values:User) => {

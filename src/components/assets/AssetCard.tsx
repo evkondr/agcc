@@ -11,8 +11,8 @@ import {
   Col,
   Row,
 } from 'antd';
-import { useAppSelector, useAppDispatch } from '../redux/hooks';
-import { getCurrentAsset, resetCurrentAsset } from '../redux/features/assetSlice';
+import { useAppSelector, useAppDispatch } from '../../redux/hooks';
+import { getCurrentAsset, resetCurrentAsset } from '../../redux/features/assetSlice';
 import HistoryTable from './HistoryTable';
 
 const { Option } = Select;

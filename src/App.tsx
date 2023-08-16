@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import { Layout } from 'antd';
-import { NavLink, Outlet } from 'react-router-dom';
-import Logo from './images/logo.png';
-import LeftSidebar from './components/LeftSidebar';
+import { Navigate, Outlet } from 'react-router-dom';
+import LeftSidebar from './components/layout/LeftSidebar';
+import { useAppSelector } from './redux/hooks';
+import TopHeader from './components/layout/Header';
 
 const {
-  Header, Content,
+  Content,
 } = Layout;
 function App() {
   const [contentMargin, setContentMargin] = useState<number>(200);
+  const { demoToken } = useAppSelector((state) => state.auth);
+  if (!demoToken) {
+    return <Navigate to="authorization" />;
+  }
   return (
     <Layout className="main">
-      <Header className="header">
-        <NavLink to="/" className="logo">
-          <img src={Logo} alt="logo" />
-        </NavLink>
-        <h1 className="header__title">Управление ИТ активами</h1>
-      </Header>
+      <TopHeader />
       <Layout hasSider>
         <LeftSidebar setContentMargin={setContentMargin} contentMargin={contentMargin} />
         <Content className="content" style={{ marginLeft: `${contentMargin}px` }}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import ChangeAddUserForm from '../ChangeAddUserForm';
+import ChangeAddUserForm from '../users/ChangeAddUserForm';
 
 const AddUserPage = () => {
   return (

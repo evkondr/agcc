@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { History } from '../db';
+import { History } from '../../db';
 
 interface tableProps {
   history: History[]
