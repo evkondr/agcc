@@ -2,6 +2,8 @@ import React from 'react';
 import {
   Button, Form, Input, Row,
 } from 'antd';
+import { Navigate } from 'react-router-dom';
+import { useAppSelector } from '../redux/hooks';
 
 interface AuthFormProps{
     onFinish: () => void,
@@ -14,6 +16,10 @@ type LoginField = {
 }
 
 const AuthForm = ({ onFinish, demoEntrance }:AuthFormProps) => {
+  const { demoToken } = useAppSelector((state) => state.auth);
+  if (demoToken) {
+    return <Navigate to="/" />;
+  }
   return (
     <Form name="auth-form" style={{ width: '300px' }} layout="vertical" onFinish={onFinish}>
       <Form.Item<LoginField> label="Логин" name="username">

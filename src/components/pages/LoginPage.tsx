@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
+import { useNavigate } from 'react-router-dom';
 import TopHeader from '../layout/Header';
 import AuthForm from '../AuthForm';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setDemoToken } from '../../redux/features/authSlice';
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
+  const { demoToken } = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
   const onFinish = () => {
     console.log('finish');
   };
   const demoEntrance = () => {
     dispatch(setDemoToken());
   };
+  useEffect(() => {
+    if (demoToken) {
+      navigate('/');
+    }
+  }, [navigate, demoToken]);
   return (
     <Layout className="main">
       <TopHeader />
