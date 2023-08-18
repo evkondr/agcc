@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import getUserFromStorage from '../getUserFromStorage';
 
 interface authState {
   token: string | null,
@@ -9,16 +8,27 @@ interface authState {
 
 const initialState: authState = {
   token: null,
-  demoToken: getUserFromStorage('demoToken'),
+  demoToken: null,
 };
+const demoToken = 'demo123';
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setDemoToken: () => {
-      localStorage.setItem('demoToken', 'demo123');
+    getDemoToken: (state) => {
+      const token = localStorage.getItem('demoToken');
+      state.demoToken = token;
+    },
+    setDemoToken: (state) => {
+      localStorage.setItem('demoToken', demoToken);
+      state.demoToken = demoToken;
+    },
+    removeDemoToken: (state) => {
+      localStorage.removeItem('demoToken');
+      state.demoToken = null;
     },
   },
 });
-export const { setDemoToken } = authSlice.actions;
+export const { getDemoToken, setDemoToken } = authSlice.actions;
 export default authSlice.reducer;

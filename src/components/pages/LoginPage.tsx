@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
@@ -21,7 +24,7 @@ const LoginPage = () => {
     if (demoToken) {
       navigate('/');
     }
-  }, [navigate, demoToken]);
+  }, [demoToken]);
   return (
     <Layout className="main">
       <TopHeader />
