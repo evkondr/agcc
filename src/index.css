@@ -39,6 +39,10 @@ code {
   font-weight: 400;
   text-transform: uppercase;
 }
+.header__logout-btn{
+  position: absolute;
+  right: 20px;
+}
 .sidebar{
   overflow: auto;
   height: 100vh;

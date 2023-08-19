@@ -44,6 +44,9 @@ export const users: User[] = [
   {
     id: '2', name: 'Пётр', secondName: 'Петрович', surname: 'Петров', email: 'user@mail.ru', city: 'Москва', fullName: 'Петров Пётр Петрович', assets: [],
   },
+  {
+    id: '3', name: 'Сергей', secondName: 'Сергеевич', surname: 'Сидоров', email: 'user@mail.ru', city: 'Свободный', fullName: 'Петров Пётр Петрович', assets: [],
+  },
 ];
 
 export const assets: AssetModel[] = [

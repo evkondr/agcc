@@ -4,11 +4,11 @@
 import React, { useEffect } from 'react';
 import { Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import TopHeader from '../layout/Header';
 import AuthForm from '../AuthForm';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { setDemoToken } from '../../redux/features/authSlice';
+import { getDemoToken, setDemoToken } from '../../redux/features/authSlice';
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
@@ -20,6 +20,9 @@ const LoginPage = () => {
   const demoEntrance = () => {
     dispatch(setDemoToken());
   };
+  useEffect(() => {
+    dispatch(getDemoToken());
+  }, [dispatch]);
   useEffect(() => {
     if (demoToken) {
       navigate('/');
