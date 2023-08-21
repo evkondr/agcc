@@ -12,7 +12,7 @@ const initialState: citiesState = {
   cities,
 };
 export const citySlice = createSlice({
-  name: 'users',
+  name: 'cities',
   initialState,
   reducers: {
   },

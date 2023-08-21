@@ -3,11 +3,13 @@ import {
 } from 'antd';
 import React from 'react';
 import { User } from '../../db';
+import { useAppSelector } from '../../redux/hooks';
 
 const ChangeAddUserForm = () => {
   const onFinish = (values:User) => {
     console.log(values);
   };
+  const { cities } = useAppSelector((state) => state.cities);
   return (
     <Form layout="vertical" style={{ maxWidth: '350px' }} initialValues={{}} onFinish={onFinish}>
       <Form.Item name="suranme" label="Фамилия">
@@ -24,7 +26,9 @@ const ChangeAddUserForm = () => {
       </Form.Item>
       <Form.Item name="city" label="Город">
         <Select>
-          <Select.Option value="demo">Demo</Select.Option>
+          {cities.map((item) => {
+            return <Select.Option key={item.id} value={item.name}>{ item.name }</Select.Option>;
+          })}
         </Select>
       </Form.Item>
       <Form.Item>

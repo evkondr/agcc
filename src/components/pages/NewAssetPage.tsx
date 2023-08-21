@@ -13,6 +13,7 @@ const NewAssetPage = () => {
   const [options, setOptions] = useState<{ value: string; label: string }[]>([]);
   const [userValue, setUserValue] = useState<string>('');
   const { foundUsers } = useAppSelector((state) => state.users);
+  const { loggedUser } = useAppSelector((state) => state.auth);
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const onChange = (data: string) => {
@@ -44,7 +45,7 @@ const NewAssetPage = () => {
         prevOwner: '',
         comments: 'Создал',
         date: new Date().toLocaleString(),
-        lastModified: 'Кондратьев ЕА',
+        lastModified: loggedUser as string,
       }],
     };
     dispatch(addNewAsset(newAsset));
