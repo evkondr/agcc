@@ -1,10 +1,10 @@
 import React from 'react';
-import ChangeAddUserForm from '../users/ChangeAddUserForm';
+import UserForm from '../users/UserForm';
 
 const AddUserPage = () => {
   return (
     <div>
-      <ChangeAddUserForm />
+      <UserForm />
     </div>
   );
 };

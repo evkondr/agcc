@@ -1,24 +1,39 @@
+/* eslint-disable react/require-default-props */
 import {
   Form, Input, Select, Button,
 } from 'antd';
 import React from 'react';
 import { User } from '../../db';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { addNewUser } from '../../redux/features/userSlice';
 
-const ChangeAddUserForm = () => {
+interface UserFormProps{
+  user?:User
+}
+const UserForm = (props: UserFormProps) => {
+  const dispatch = useAppDispatch();
+  let userValues: User | object = {};
+  const { user } = props;
+  if (user) {
+    userValues = user;
+  }
   const onFinish = (values:User) => {
-    console.log(values);
+    if (user) {
+      console.log(values);
+    } else {
+      dispatch(addNewUser(values));
+    }
   };
   const { cities } = useAppSelector((state) => state.cities);
   return (
-    <Form layout="vertical" style={{ maxWidth: '350px' }} initialValues={{}} onFinish={onFinish}>
-      <Form.Item name="suranme" label="Фамилия">
+    <Form layout="vertical" style={{ maxWidth: '350px' }} initialValues={userValues} onFinish={onFinish}>
+      <Form.Item name="surname" label="Фамилия">
         <Input />
       </Form.Item>
       <Form.Item name="name" label="Имя">
         <Input />
       </Form.Item>
-      <Form.Item name="secondname" label="Отчество">
+      <Form.Item name="secondName" label="Отчество">
         <Input />
       </Form.Item>
       <Form.Item name="email" label="Почта">
@@ -38,4 +53,4 @@ const ChangeAddUserForm = () => {
   );
 };
 
-export default ChangeAddUserForm;
+export default UserForm;
