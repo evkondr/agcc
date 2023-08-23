@@ -3,6 +3,7 @@ import {
   Form, Input, Select, Button,
 } from 'antd';
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { User } from '../../db';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addNewUser } from '../../redux/features/userSlice';
@@ -21,7 +22,7 @@ const UserForm = (props: UserFormProps) => {
     if (user) {
       console.log(values);
     } else {
-      dispatch(addNewUser(values));
+      dispatch(addNewUser({ ...values, id: uuidv4(), assets: [] }));
     }
   };
   const { cities } = useAppSelector((state) => state.cities);
