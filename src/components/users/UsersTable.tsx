@@ -33,7 +33,7 @@ const UsersTable = ({ users }:UsersTableProps) => {
     {
       title: 'Обородование',
       dataIndex: 'id',
-      render: (record) => <NavLink to={`/user/${record}/assets`}><UnorderedListOutlined /></NavLink>,
+      render: (record) => <NavLink to={`/users/${record}`}><UnorderedListOutlined /></NavLink>,
     },
   ];
   return (
