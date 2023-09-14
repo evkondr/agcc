@@ -2,11 +2,11 @@
 import {
   Form, Input, Select, Button,
 } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { User } from '../../db';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { addNewUser } from '../../redux/features/userSlice';
+import { addNewUser, updateCurrentUser } from '../../redux/features/userSlice';
 
 interface UserFormProps{
   user?:User
@@ -15,19 +15,29 @@ const UserForm = (props: UserFormProps) => {
   const dispatch = useAppDispatch();
   let userValues: User | object = {};
   const { user } = props;
+  const [disabled, setDisabled] = useState<boolean>(false);
   if (user) {
+    // If user provided, then use its values
     userValues = user;
   }
   const onFinish = (values:User) => {
     if (user) {
-      console.log(values);
+      // If user provided, then it may be updated
+      dispatch(updateCurrentUser({ id: user.id as string, userData: { ...values, assets: [] } }));
+      setDisabled(true);
     } else {
+      // Else it may be created
       dispatch(addNewUser({ ...values, id: uuidv4(), assets: [] }));
     }
   };
   const { cities } = useAppSelector((state) => state.cities);
+  useEffect(() => {
+    if (user) {
+      setDisabled(true);
+    }
+  }, [user]);
   return (
-    <Form layout="vertical" style={{ maxWidth: '350px' }} initialValues={userValues} onFinish={onFinish}>
+    <Form layout="vertical" style={{ maxWidth: '350px' }} initialValues={userValues} onFinish={onFinish} disabled={disabled}>
       <Form.Item name="surname" label="Фамилия">
         <Input />
       </Form.Item>
@@ -48,7 +58,16 @@ const UserForm = (props: UserFormProps) => {
         </Select>
       </Form.Item>
       <Form.Item>
-        <Button htmlType="submit">Создать</Button>
+        <Button htmlType="submit" style={{ marginRight: '10px' }}>{user ? 'Обновить' : 'Создать'}</Button>
+        {user && (
+        <Button
+          htmlType="button"
+          onClick={() => setDisabled(!disabled)}
+          disabled={false}
+        >
+          {disabled ? 'Редактировать' : 'Отменить'}
+        </Button>
+        )}
       </Form.Item>
     </Form>
   );

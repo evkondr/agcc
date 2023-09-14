@@ -31,6 +31,17 @@ export const usersSlice = createSlice({
     getUserById: (state, action: PayloadAction<string>) => {
       state.currentUser = state.users.find((user) => user.id === action.payload);
     },
+    updateCurrentUser: (state, action: PayloadAction<{id:string, userData: User}>) => {
+      const { id, userData } = action.payload;
+      const newUsersState = state.users.map((user) => {
+        if (user.id === action.payload.id) {
+          user = { id, ...userData };
+          return user;
+        }
+        return user;
+      });
+      state.users = newUsersState;
+    },
     clearCurrentUser: (state) => {
       state.currentUser = undefined;
     },
@@ -38,7 +49,9 @@ export const usersSlice = createSlice({
 });
 
 export const {
-  getAllUsers, findUserBySurname, getUsersByLocation, addNewUser, getUserById, clearCurrentUser,
+  getAllUsers,
+  findUserBySurname,
+  getUsersByLocation, addNewUser, getUserById, clearCurrentUser, updateCurrentUser,
 } = usersSlice.actions;
 
 export default usersSlice.reducer;
