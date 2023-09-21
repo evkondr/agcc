@@ -3,13 +3,13 @@ import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { UnorderedListOutlined } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
-import { User } from '../../db';
+import { IUser } from '../../db';
 
 interface UsersTableProps{
-  users:User[]
+  users:IUser[]
 }
 const UsersTable = ({ users }:UsersTableProps) => {
-  const columns:ColumnsType<User> = [
+  const columns:ColumnsType<IUser> = [
     {
       title: 'Фамилия',
       dataIndex: 'surname',

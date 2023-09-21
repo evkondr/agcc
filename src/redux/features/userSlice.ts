@@ -1,12 +1,12 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { User, users } from '../../db';
+import { IUser, users } from '../../db';
 
 interface usersState {
-  users: User[]
-  currentUser: User | undefined,
-  foundUsers: User[] | []
+  users: IUser[]
+  currentUser: IUser | undefined,
+  foundUsers: IUser[] | []
 }
 
 const initialState: usersState = {
@@ -25,13 +25,13 @@ export const usersSlice = createSlice({
     getUsersByLocation: (state, action: PayloadAction<string>) => {
       state.foundUsers = state.users.filter((user) => user.city === action.payload);
     },
-    addNewUser: (state, action: PayloadAction<User>) => {
+    addNewUser: (state, action: PayloadAction<IUser>) => {
       state.users.push(action.payload);
     },
     getUserById: (state, action: PayloadAction<string>) => {
       state.currentUser = state.users.find((user) => user.id === action.payload);
     },
-    updateCurrentUser: (state, action: PayloadAction<{id:string, userData: User}>) => {
+    updateCurrentUser: (state, action: PayloadAction<{id:string, userData: IUser}>) => {
       const { id, userData } = action.payload;
       const newUsersState = state.users.map((user) => {
         if (user.id === action.payload.id) {

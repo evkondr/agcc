@@ -4,23 +4,23 @@ import {
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { User } from '../../db';
+import { IUser } from '../../db';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addNewUser, updateCurrentUser } from '../../redux/features/userSlice';
 
 interface UserFormProps{
-  user?:User
+  user?:IUser
 }
 const UserForm = (props: UserFormProps) => {
   const dispatch = useAppDispatch();
-  let userValues: User | object = {};
+  let userValues: IUser | object = {};
   const { user } = props;
   const [disabled, setDisabled] = useState<boolean>(false);
   if (user) {
     // If user provided, then use its values
     userValues = user;
   }
-  const onFinish = (values:User) => {
+  const onFinish = (values:IUser) => {
     if (user) {
       // If user provided, then it may be updated
       dispatch(updateCurrentUser({ id: user.id as string, userData: { ...values, assets: [] } }));

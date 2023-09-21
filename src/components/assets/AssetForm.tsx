@@ -1,8 +1,9 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-import React, { useState, useLayoutEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+
 import {
   Button,
   Form,
@@ -11,28 +12,31 @@ import {
   Col,
   Row,
 } from 'antd';
-import { useAppSelector, useAppDispatch } from '../../redux/hooks';
-import { getCurrentAsset, resetCurrentAsset } from '../../redux/features/assetSlice';
+
+import { v4 as uuidv4 } from 'uuid';
 import HistoryTable from './HistoryTable';
+import { IAssetModel } from '../../db';
+import { addNewAsset } from '../../redux/features/assetSlice';
+import { useAppDispatch } from '../../redux/hooks';
 
 const { Option } = Select;
 
-const AssetCard = () => {
-  const { id } = useParams();
-  const [isEdit, setIsEdit] = useState<boolean>(false);
-  const onEditHandler = () => {
-    setIsEdit(!isEdit);
-  };
-  const { currentAsset } = useAppSelector((state) => state.asset);
+const AssetCard = ({ currentAsset }:{currentAsset?:IAssetModel}) => {
+  const [disabled, setDisabled] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  useLayoutEffect(() => {
-    if (id) {
-      dispatch(getCurrentAsset(id));
-      return () => {
-        dispatch(resetCurrentAsset());
-      };
+  const onFinish = (values:IAssetModel) => {
+    if (currentAsset) {
+      // If user provided, then it may be updated
+    } else {
+      // Else it may be created
+      dispatch(addNewAsset({ ...values, id: uuidv4(), history: [] }));
     }
-  }, [dispatch, id]);
+  };
+  useEffect(() => {
+    if (currentAsset) {
+      setDisabled(true);
+    }
+  }, [currentAsset]);
   if (!currentAsset) {
     return <div>Загрузка...</div>;
   }
@@ -41,8 +45,8 @@ const AssetCard = () => {
       <Form
         layout="vertical"
         style={{ maxWidth: '350px' }}
-        initialValues={currentAsset}
-        disabled={!isEdit}
+        initialValues={currentAsset || {}}
+        disabled={disabled}
       >
         <Form.Item label="Модель" name="model">
           <Input />
@@ -64,7 +68,16 @@ const AssetCard = () => {
           </Select>
         </Form.Item>
         <Form.Item>
-          <Button disabled={false} onClick={onEditHandler}>{isEdit ? 'Сохранить' : 'Редактировать'}</Button>
+          <Button htmlType="submit" style={{ marginRight: '10px' }}>{currentAsset ? 'Обновить' : 'Создать'}</Button>
+          {currentAsset && (
+          <Button
+            htmlType="button"
+            onClick={() => setDisabled(!disabled)}
+            disabled={false}
+          >
+            {disabled ? 'Редактировать' : 'Отменить'}
+          </Button>
+          )}
         </Form.Item>
       </Form>
       <Row>

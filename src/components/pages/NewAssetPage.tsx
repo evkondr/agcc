@@ -5,7 +5,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { findUserBySurname } from '../../redux/features/userSlice';
-import { AssetModel, assetStatus, cities } from '../../db';
+import { IAssetModel, assetStatus, cities } from '../../db';
 import { addNewAsset } from '../../redux/features/assetSlice';
 
 const { Option } = Select;
@@ -34,9 +34,9 @@ const NewAssetPage = () => {
     }
     setOptions(res);
   };
-  const onFinish = (values: AssetModel) => {
+  const onFinish = (values: IAssetModel) => {
     form.resetFields();
-    const newAsset:AssetModel = {
+    const newAsset:IAssetModel = {
       ...values,
       id: uuidv4(),
       status: assetStatus.notAssigned,

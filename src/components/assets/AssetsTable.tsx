@@ -2,13 +2,13 @@ import React from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { NavLink } from 'react-router-dom';
-import { AssetModel } from '../../db';
+import { IAssetModel } from '../../db';
 
 interface tableProps {
-  assets: AssetModel[]
+  assets: IAssetModel[]
 }
 const AssetsTable = ({ assets }:tableProps) => {
-  const columns: ColumnsType<AssetModel> = [
+  const columns: ColumnsType<IAssetModel> = [
     {
       title: 'Модель',
       dataIndex: 'model',
