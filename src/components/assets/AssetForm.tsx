@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/require-default-props */
 /* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -11,25 +12,71 @@ import {
   Select,
   Col,
   Row,
+  AutoComplete,
 } from 'antd';
 
 import { v4 as uuidv4 } from 'uuid';
 import HistoryTable from './HistoryTable';
-import { IAssetModel } from '../../db';
-import { addNewAsset } from '../../redux/features/assetSlice';
+import { IAssetModel, assetStatus } from '../../db';
+import { addNewAsset, updateCurrentAsset } from '../../redux/features/assetSlice';
 import { useAppDispatch } from '../../redux/hooks';
 
 const { Option } = Select;
-
-const AssetCard = ({ currentAsset }:{currentAsset?:IAssetModel}) => {
+interface IAssetFormProps {
+  currentAsset?:IAssetModel;
+  loggedUser: string | null;
+}
+const AssetCard = ({ currentAsset, loggedUser }: IAssetFormProps) => {
   const [disabled, setDisabled] = useState<boolean>(false);
   const dispatch = useAppDispatch();
+  const [form] = Form.useForm();
+  // AutoComplete configuration
+  const [options, setOptions] = useState<{ value: string; label: string }[]>([]);
+  const handleSearch = (value: string) => {
+    let res: { value: string; label: string }[] = [];
+    if (!value || value.indexOf('@') >= 0) {
+      res = [];
+    } else {
+      res = ['gmail.com', '163.com', 'qq.com'].map((domain) => ({
+        value,
+        label: `${value}@${domain}`,
+      }));
+    }
+    setOptions(res);
+  };
   const onFinish = (values:IAssetModel) => {
     if (currentAsset) {
-      // If user provided, then it may be updated
+      // If asset provided, then it may be updated
+      let prevOwner:string;
+      if (currentAsset.history.length > 0) {
+        prevOwner = values.owner?.fullName as string;
+      } else {
+        prevOwner = 'склад';
+      }
+      const assetUpdates:IAssetModel = {
+        ...values,
+        history: [...currentAsset.history, {
+          prevOwner, date: new Date().toLocaleDateString(), comments: 'asdasdsd', lastModified: loggedUser as string,
+        }],
+      };
+      dispatch(updateCurrentAsset({ assetID: currentAsset.id as string, asset: assetUpdates }));
+      setDisabled(true);
     } else {
       // Else it may be created
-      dispatch(addNewAsset({ ...values, id: uuidv4(), history: [] }));
+      form.resetFields();
+      const newAsset:IAssetModel = {
+        ...values,
+        id: uuidv4(),
+        status: assetStatus.notAssigned,
+        history: [{
+          id: uuidv4(),
+          prevOwner: '',
+          comments: 'Создал',
+          date: new Date().toLocaleString(),
+          lastModified: loggedUser as string,
+        }],
+      };
+      dispatch(addNewAsset(newAsset));
     }
   };
   useEffect(() => {
@@ -37,9 +84,9 @@ const AssetCard = ({ currentAsset }:{currentAsset?:IAssetModel}) => {
       setDisabled(true);
     }
   }, [currentAsset]);
-  if (!currentAsset) {
-    return <div>Загрузка...</div>;
-  }
+  // if (!currentAsset) {
+  //   return <div>Загрузка...</div>;
+  // }
   return (
     <>
       <Form
@@ -47,6 +94,7 @@ const AssetCard = ({ currentAsset }:{currentAsset?:IAssetModel}) => {
         style={{ maxWidth: '350px' }}
         initialValues={currentAsset || {}}
         disabled={disabled}
+        onFinish={onFinish}
       >
         <Form.Item label="Модель" name="model">
           <Input />
@@ -61,11 +109,11 @@ const AssetCard = ({ currentAsset }:{currentAsset?:IAssetModel}) => {
           <Input />
         </Form.Item>
         <Form.Item label="Расположение" name="owner">
-          <Select>
-            <Option value="red">Иванов</Option>
-            <Option value="green">Петров</Option>
-            <Option value="blue">Сидоров</Option>
-          </Select>
+          <AutoComplete
+            onSearch={handleSearch}
+            placeholder="input here"
+            options={options}
+          />
         </Form.Item>
         <Form.Item>
           <Button htmlType="submit" style={{ marginRight: '10px' }}>{currentAsset ? 'Обновить' : 'Создать'}</Button>
@@ -80,7 +128,7 @@ const AssetCard = ({ currentAsset }:{currentAsset?:IAssetModel}) => {
           )}
         </Form.Item>
       </Form>
-      <Row>
+      {/* <Row>
         {currentAsset.history && currentAsset.history.length > 0
           && (
           <div style={{ width: '90%' }}>
@@ -88,7 +136,7 @@ const AssetCard = ({ currentAsset }:{currentAsset?:IAssetModel}) => {
             <HistoryTable history={currentAsset.history} />
           </div>
           )}
-      </Row>
+      </Row> */}
     </>
   );
 };

@@ -4,7 +4,7 @@ import { RootState } from '../../redux/store';
 import AssetsTable from '../assets/AssetsTable';
 
 const AssetsPage = () => {
-  const { assets } = useSelector((state: RootState) => state.asset);
+  const { assets } = useSelector((state: RootState) => state.assets);
   return (
     <AssetsTable assets={assets} />
   );

@@ -7,7 +7,7 @@ import citiesReducer from './features/citySlice';
 export const store = configureStore({
   reducer: {
     users: userReducer,
-    asset: assetReducer,
+    assets: assetReducer,
     auth: authReducer,
     cities: citiesReducer,
   },

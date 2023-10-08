@@ -29,7 +29,7 @@ export interface IAssetModel{
   model:string,
   serialNumber:string,
   owner: IUser | null
-  history: IHistory[] | null
+  history: IHistory[],
   status:assetStatus,
   city:string
 }
@@ -67,16 +67,16 @@ export const assets: IAssetModel[] = [
     city: 'Москва',
   },
   {
-    id: '2', type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A506673', owner: null, history: null, status: assetStatus.notAssigned, city: 'Москва',
+    id: '2', type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A506673', owner: null, history: [], status: assetStatus.notAssigned, city: 'Москва',
   },
   {
-    id: '3', type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A5012323', owner: null, history: null, status: assetStatus.notAssigned, city: 'Москва',
+    id: '3', type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A5012323', owner: null, history: [], status: assetStatus.notAssigned, city: 'Москва',
   },
   {
-    id: '4', type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A22334', owner: null, history: null, status: assetStatus.notAssigned, city: 'Москва',
+    id: '4', type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA3031A22334', owner: null, history: [], status: assetStatus.notAssigned, city: 'Москва',
   },
   {
-    id: '5', type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA30311231', owner: null, history: null, status: assetStatus.notAssigned, city: 'Москва',
+    id: '5', type: 'Ноутбук', model: 'Lenovo ThinkPad x280', serialNumber: 'VNA30311231', owner: null, history: [], status: assetStatus.notAssigned, city: 'Москва',
   },
 ];
 export const cities: ICity[] = [

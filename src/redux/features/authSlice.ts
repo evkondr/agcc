@@ -21,11 +21,12 @@ export const authSlice = createSlice({
     getDemoToken: (state) => {
       const token = localStorage.getItem('demoToken');
       state.demoToken = token;
+      state.loggedUser = 'Демо пользователь';
     },
     setDemoToken: (state) => {
       localStorage.setItem('demoToken', demoToken);
       state.demoToken = demoToken;
-      state.loggedUser = 'Demo user';
+      state.loggedUser = 'Демо пользователь';
     },
     removeDemoToken: (state) => {
       localStorage.removeItem('demoToken');

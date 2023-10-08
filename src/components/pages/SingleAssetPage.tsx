@@ -7,7 +7,8 @@ import AssetFrom from '../assets/AssetForm';
 
 const SingleAssetPage = () => {
   const { id } = useParams();
-  const { currentAsset } = useAppSelector((state) => state.asset);
+  const { currentAsset } = useAppSelector((state) => state.assets);
+  const { loggedUser } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   useLayoutEffect(() => {
     if (id) {
@@ -18,7 +19,7 @@ const SingleAssetPage = () => {
     }
   }, [dispatch, id]);
   return (
-    <AssetFrom currentAsset={currentAsset} />
+    <AssetFrom currentAsset={currentAsset} loggedUser={loggedUser} />
   );
 };
 

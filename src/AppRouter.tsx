@@ -2,12 +2,12 @@ import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import AssetsPage from './components/pages/AssetsPage';
-import NewAssetPage from './components/pages/NewAssetPage';
 import UsersPage from './components/pages/UsersPage';
 import AddUserPage from './components/pages/AddUserPage';
 import LoginPage from './components/pages/LoginPage';
 import SingleUserPage from './components/pages/SingleUserPage';
 import SingleAssetPage from './components/pages/SingleAssetPage';
+import AddAssetPage from './components/pages/AddAssetPage';
 
 const AppRouter = createBrowserRouter([
   {
@@ -24,7 +24,7 @@ const AppRouter = createBrowserRouter([
       },
       {
         path: 'assets/add',
-        element: <NewAssetPage />,
+        element: <AddAssetPage />,
       },
       {
         path: 'users/',
