@@ -5,8 +5,9 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { findUserBySurname } from '../../redux/features/userSlice';
-import { IAssetModel, assetStatus, cities } from '../../types';
+import { IAssetModel, assetStatus } from '../../types';
 import { addNewAsset } from '../../redux/features/assetSlice';
+import fetchAllCities from '../../redux/thuks';
 
 const { Option } = Select;
 const NewAssetPage = () => {
@@ -14,6 +15,7 @@ const NewAssetPage = () => {
   const [userValue, setUserValue] = useState<string>('');
   const { foundUsers } = useAppSelector((state) => state.users);
   const { loggedUser } = useAppSelector((state) => state.auth);
+  const { cities } = useAppSelector((state) => state.cities);
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const onChange = (data: string) => {
@@ -53,6 +55,10 @@ const NewAssetPage = () => {
   useEffect(() => {
     dispatch(findUserBySurname(userValue));
   }, [userValue, dispatch]);
+  useEffect(() => {
+    dispatch(fetchAllCities());
+  }, [cities, dispatch]);
+  console.log('sasdsd');
   return (
     <Form
       layout="vertical"

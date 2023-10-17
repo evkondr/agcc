@@ -1,10 +1,20 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import React, { useEffect } from 'react';
 import AssetsTable from '../assets/AssetsTable';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 const AssetsPage = () => {
-  const { assets } = useSelector((state: RootState) => state.assets);
+  const { assets } = useAppSelector((state) => state.assets);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    //
+  }, [dispatch]);
+  if (assets.length < 1) {
+    return (
+      <div>
+        В базе данных еще нет оборудования.
+      </div>
+    );
+  }
   return (
     <AssetsTable assets={assets} />
   );
