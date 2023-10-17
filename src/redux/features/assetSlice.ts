@@ -3,7 +3,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { IAssetModel, assets } from '../../db';
+import { IAssetModel, assets } from '../../types';
 
 interface assetsState {
   assets: IAssetModel[],

@@ -5,7 +5,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { findUserBySurname } from '../../redux/features/userSlice';
-import { IAssetModel, assetStatus, cities } from '../../db';
+import { IAssetModel, assetStatus, cities } from '../../types';
 import { addNewAsset } from '../../redux/features/assetSlice';
 
 const { Option } = Select;

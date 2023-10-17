@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { IUser, users } from '../../db';
+import { IUser, users } from '../../types';
 
 interface usersState {
   users: IUser[]

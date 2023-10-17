@@ -4,7 +4,7 @@ import {
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { IUser } from '../../db';
+import { IUser } from '../../types';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addNewUser, updateCurrentUser } from '../../redux/features/userSlice';
 

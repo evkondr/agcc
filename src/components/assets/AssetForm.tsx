@@ -17,7 +17,7 @@ import {
 
 import { v4 as uuidv4 } from 'uuid';
 import HistoryTable from './HistoryTable';
-import { IAssetModel, assetStatus } from '../../db';
+import { IAssetModel, assetStatus } from '../../types';
 import { addNewAsset, updateCurrentAsset } from '../../redux/features/assetSlice';
 import { useAppDispatch } from '../../redux/hooks';
 
