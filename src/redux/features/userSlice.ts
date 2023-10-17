@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { IUser, users } from '../../types';
+import { IUser } from '../../types';
 
 interface usersState {
   users: IUser[]
@@ -10,7 +10,7 @@ interface usersState {
 }
 
 const initialState: usersState = {
-  users,
+  users: [],
   foundUsers: [],
   currentUser: undefined,
 };

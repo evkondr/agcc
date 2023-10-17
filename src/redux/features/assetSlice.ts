@@ -3,7 +3,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { IAssetModel, assets } from '../../types';
+import { IAssetModel } from '../../types';
 
 interface assetsState {
   assets: IAssetModel[],
@@ -11,7 +11,7 @@ interface assetsState {
 }
 
 const initialState: assetsState = {
-  assets,
+  assets: [],
   currentAsset: undefined,
 };
 export const assetsSlice = createSlice({

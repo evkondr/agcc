@@ -2,14 +2,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 // import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { ICity, cities } from '../../types';
+import { ICity } from '../../types';
 
 interface citiesState {
   cities: ICity[]
 }
 
 const initialState: citiesState = {
-  cities,
+  cities: [],
 };
 export const citySlice = createSlice({
   name: 'cities',
