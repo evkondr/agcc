@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { fetchAllAssets } from '../thunks';
+import { fetchAllAssets, fetchAssetById } from '../thunks';
 
 import { IAssetModel } from '../../types';
 
@@ -23,9 +23,6 @@ export const assetsSlice = createSlice({
   name: 'assets',
   initialState,
   reducers: {
-    getCurrentAsset: (state, action: PayloadAction<string>):any => {
-      state.currentAsset = state.assets.find((el) => el.id === action.payload);
-    },
     resetCurrentAsset: (state) => {
       state.currentAsset = undefined;
     },
@@ -42,24 +39,36 @@ export const assetsSlice = createSlice({
       });
     },
   },
-  extraReducers: (buider) => {
-    buider.addCase(fetchAllAssets.pending, (state) => {
+  extraReducers: (builder) => {
+    // Fetch all assets
+    builder.addCase(fetchAllAssets.pending, (state) => {
       state.loading = true;
     });
-    buider.addCase(fetchAllAssets.fulfilled, (state, aciton) => {
+    builder.addCase(fetchAllAssets.fulfilled, (state, aciton) => {
       state.loading = false;
       state.assets = aciton.payload;
       state.error = null;
     });
-    buider.addCase(fetchAllAssets.rejected, (state, aciton) => {
+    builder.addCase(fetchAllAssets.rejected, (state, aciton) => {
+      state.loading = false;
+      state.error = aciton.payload as string;
+    });
+    // Fetch assets by id
+    builder.addCase(fetchAssetById.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchAssetById.fulfilled, (state, action) => {
+      state.loading = false;
+      state.currentAsset = action.payload;
+      state.error = null;
+    });
+    builder.addCase(fetchAssetById.rejected, (state, aciton) => {
       state.loading = false;
       state.error = aciton.payload as string;
     });
   },
 });
 
-export const {
-  getCurrentAsset, resetCurrentAsset, addNewAsset, updateCurrentAsset,
-} = assetsSlice.actions;
+export const { resetCurrentAsset, addNewAsset, updateCurrentAsset } = assetsSlice.actions;
 
 export default assetsSlice.reducer;

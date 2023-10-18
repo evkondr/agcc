@@ -2,22 +2,31 @@
 import React, { useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
-import { getCurrentAsset, resetCurrentAsset } from '../../redux/features/assetSlice';
 import AssetFrom from '../assets/AssetForm';
+import { fetchAssetById } from '../../redux/thunks';
 
 const SingleAssetPage = () => {
   const { id } = useParams();
-  const { currentAsset } = useAppSelector((state) => state.assets);
+  const { currentAsset, loading, error } = useAppSelector((state) => state.assets);
   const { loggedUser } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   useLayoutEffect(() => {
-    if (id) {
-      dispatch(getCurrentAsset(id));
-      return () => {
-        dispatch(resetCurrentAsset());
-      };
-    }
+    dispatch(fetchAssetById(id as string));
   }, [dispatch, id]);
+  if (loading) {
+    return (
+      <div>
+        Загрузка...
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div>
+        {error}
+      </div>
+    );
+  }
   return (
     <AssetFrom currentAsset={currentAsset} loggedUser={loggedUser} />
   );
