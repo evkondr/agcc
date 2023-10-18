@@ -30,7 +30,15 @@
       "id": "4", "name": "Роман", "secondName": "Аркадьевич", "surname": "Иванов", "email": "user@mail.ru", "city": "Свободный", "fullName": "Иванов Роман Аркадьевич", "assets": []
     },
     { 
-      "id": "4", "name": "Равиль", "secondName": "Решатович", "surname": "Решалов", "email": "user@mail.ru", "city": "Москва", "fullName": "Решалов Равиль Решатович", "assets": []
+      "id": "5", "name": "Равиль", "secondName": "Решатович", "surname": "Решалов", "email": "user@mail.ru", "city": "Москва", "fullName": "Решалов Равиль Решатович", "assets": []
+    }
+  ],
+  "cities": [
+    {
+      "id": "1", "name": "Москва"
+    },
+    {
+      "id": "2", "name": "Свободный"
     }
   ]
 }

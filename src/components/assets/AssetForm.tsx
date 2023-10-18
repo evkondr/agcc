@@ -19,7 +19,8 @@ import { v4 as uuidv4 } from 'uuid';
 import HistoryTable from './HistoryTable';
 import { IAssetModel, assetStatus } from '../../types';
 import { addNewAsset, updateCurrentAsset } from '../../redux/features/assetSlice';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { fetchAllCities } from '../../redux/thunks';
 
 const { Option } = Select;
 interface IAssetFormProps {
@@ -28,6 +29,7 @@ interface IAssetFormProps {
 }
 const AssetCard = ({ currentAsset, loggedUser }: IAssetFormProps) => {
   const [disabled, setDisabled] = useState<boolean>(false);
+  const { cities } = useAppSelector((state) => state.cities);
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
   // AutoComplete configuration
@@ -83,10 +85,12 @@ const AssetCard = ({ currentAsset, loggedUser }: IAssetFormProps) => {
     if (currentAsset) {
       setDisabled(true);
     }
-  }, [currentAsset]);
+    dispatch(fetchAllCities());
+  }, [currentAsset, dispatch]);
   // if (!currentAsset) {
   //   return <div>Загрузка...</div>;
   // }
+  console.log(cities);
   return (
     <>
       <Form
