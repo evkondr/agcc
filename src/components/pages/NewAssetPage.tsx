@@ -7,7 +7,7 @@ import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { findUserBySurname } from '../../redux/features/userSlice';
 import { IAssetModel, assetStatus } from '../../types';
 import { addNewAsset } from '../../redux/features/assetSlice';
-import { fetchAllCities } from '../../redux/thunks';
+import fetchAllCities from '../../redux/features/thunks/cityThunks';
 
 const { Option } = Select;
 const NewAssetPage = () => {

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import AssetsTable from '../assets/AssetsTable';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchAllAssets } from '../../redux/thunks';
+import { fetchAllAssets } from '../../redux/features/thunks/assetThunks';
 
 const AssetsPage = () => {
   const { assets, loading, error } = useAppSelector((state) => state.assets);

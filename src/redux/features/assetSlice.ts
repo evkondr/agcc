@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { fetchAllAssets, fetchAssetById } from '../thunks';
+import { fetchAllAssets, fetchAssetById } from './thunks/assetThunks';
 
 import { IAssetModel } from '../../types';
 

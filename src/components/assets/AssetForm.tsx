@@ -20,7 +20,7 @@ import HistoryTable from './HistoryTable';
 import { IAssetModel, assetStatus } from '../../types';
 import { addNewAsset, updateCurrentAsset } from '../../redux/features/assetSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchAllCities } from '../../redux/thunks';
+import fetchAllCities from '../../redux/features/thunks/cityThunks';
 
 const { Option } = Select;
 interface IAssetFormProps {

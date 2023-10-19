@@ -3,7 +3,7 @@ import React, { useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import AssetFrom from '../assets/AssetForm';
-import { fetchAssetById } from '../../redux/thunks';
+import { fetchAssetById } from '../../redux/features/thunks/assetThunks';
 
 const SingleAssetPage = () => {
   const { id } = useParams();
