@@ -1,24 +1,28 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { fetchAllUsers, fetchUserById } from './thunks/userThunks';
 
 import { IUser } from '../../types';
 
 interface usersState {
   users: IUser[]
-  currentUser: IUser | undefined,
+  currentUser: IUser | undefined
   foundUsers: IUser[] | []
+  loading: boolean
+  error: string | null
 }
 
 const initialState: usersState = {
   users: [],
   foundUsers: [],
   currentUser: undefined,
+  loading: false,
+  error: null,
 };
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    getAllUsers: (state) => state,
     findUserBySurname: (state, action: PayloadAction<string>) => {
       state.foundUsers = state.users.filter((user) => user.surname === action.payload);
     },
@@ -46,10 +50,37 @@ export const usersSlice = createSlice({
       state.currentUser = undefined;
     },
   },
+  extraReducers: (builder) => {
+    // Fetching all users
+    builder.addCase(fetchAllUsers.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchAllUsers.fulfilled, (state, action) => {
+      state.loading = false;
+      state.users = action.payload;
+      state.error = null;
+    });
+    builder.addCase(fetchAllUsers.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    });
+    // Fetching user by id
+    builder.addCase(fetchUserById.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchUserById.fulfilled, (state, action) => {
+      state.loading = false;
+      state.currentUser = action.payload;
+      state.error = null;
+    });
+    builder.addCase(fetchUserById.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    });
+  },
 });
 
 export const {
-  getAllUsers,
   findUserBySurname,
   getUsersByLocation, addNewUser, getUserById, clearCurrentUser, updateCurrentUser,
 } = usersSlice.actions;
