@@ -10,15 +10,13 @@ import {
   Form,
   Input,
   Select,
-  Col,
-  Row,
-  AutoComplete,
 } from 'antd';
 
 import { v4 as uuidv4 } from 'uuid';
 import HistoryTable from './HistoryTable';
-import { IAssetModel, assetStatus } from '../../types';
-import { addNewAsset, updateCurrentAsset } from '../../redux/features/assetSlice';
+import { IAssetModel, ICity, assetStatus } from '../../types';
+import { updateCurrentAsset } from '../../redux/features/assetSlice';
+import { addNewAsset } from '../../redux/features/thunks/assetThunks';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import fetchAllCities from '../../redux/features/thunks/cityThunks';
 
@@ -30,22 +28,9 @@ interface IAssetFormProps {
 const AssetCard = ({ currentAsset, loggedUser }: IAssetFormProps) => {
   const [disabled, setDisabled] = useState<boolean>(false);
   const { cities } = useAppSelector((state) => state.cities);
+  const citiesOptions = cities.map((item:ICity) => ({ value: item.name, label: item.name }));
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
-  // AutoComplete configuration
-  const [options, setOptions] = useState<{ value: string; label: string }[]>([]);
-  const handleSearch = (value: string) => {
-    let res: { value: string; label: string }[] = [];
-    if (!value || value.indexOf('@') >= 0) {
-      res = [];
-    } else {
-      res = ['gmail.com', '163.com', 'qq.com'].map((domain) => ({
-        value,
-        label: `${value}@${domain}`,
-      }));
-    }
-    setOptions(res);
-  };
   const onFinish = (values:IAssetModel) => {
     if (currentAsset) {
       // If asset provided, then it may be updated
@@ -87,9 +72,6 @@ const AssetCard = ({ currentAsset, loggedUser }: IAssetFormProps) => {
     }
     dispatch(fetchAllCities());
   }, [currentAsset, dispatch]);
-  // if (!currentAsset) {
-  //   return <div>Загрузка...</div>;
-  // }
   console.log(cities);
   return (
     <>
@@ -99,6 +81,7 @@ const AssetCard = ({ currentAsset, loggedUser }: IAssetFormProps) => {
         initialValues={currentAsset || {}}
         disabled={disabled}
         onFinish={onFinish}
+        form={form}
       >
         <Form.Item label="Модель" name="model">
           <Input />
@@ -110,14 +93,10 @@ const AssetCard = ({ currentAsset, loggedUser }: IAssetFormProps) => {
           <Input />
         </Form.Item>
         <Form.Item label="Город" name="city">
-          <Input />
+          <Select placeholder="Выбрать город" options={citiesOptions} />
         </Form.Item>
         <Form.Item label="Расположение" name="owner">
-          <AutoComplete
-            onSearch={handleSearch}
-            placeholder="input here"
-            options={options}
-          />
+          <Input />
         </Form.Item>
         <Form.Item>
           <Button htmlType="submit" style={{ marginRight: '10px' }}>{currentAsset ? 'Обновить' : 'Создать'}</Button>

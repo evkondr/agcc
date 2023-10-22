@@ -1,44 +1,152 @@
 {
   "assets": [
     {
-      "id": "1", "type": "Ноутбук", "model": "Lenovo ThinkPad x270", "serialNumber": "VNA3031A506673", "owner": null, "history": [], "status": "Не назначен", "city": "Москва"
+      "id": "1",
+      "type": "Ноутбук",
+      "model": "Lenovo ThinkPad x270",
+      "serialNumber": "VNA3031A506673",
+      "owner": null,
+      "history": [],
+      "status": "Не назначен",
+      "city": "Москва"
     },
     {
-      "id": "2", "type": "Ноутбук", "model": "Lenovo ThinkPad x315", "serialNumber": "VNA3031A506673", "owner": null, "history": [], "status": "Не назначен", "city": "Москва"
+      "id": "2",
+      "type": "Ноутбук",
+      "model": "Lenovo ThinkPad x315",
+      "serialNumber": "VNA3031A506673",
+      "owner": null,
+      "history": [],
+      "status": "Не назначен",
+      "city": "Москва"
     },
     {
-      "id": "3", "type": "Монитор", "model": "Lenovo ThinkVision T2", "serialNumber": "VNA3031A506673", "owner": null, "history": [], "status": "Не назначен", "city": "Свободный"
+      "id": "3",
+      "type": "Монитор",
+      "model": "Lenovo ThinkVision T2",
+      "serialNumber": "VNA3031A506673",
+      "owner": null,
+      "history": [],
+      "status": "Не назначен",
+      "city": "Свободный"
     },
     {
-      "id": "4", "type": "Монитор", "model": "Lenovo ThinkVision TO15", "serialNumber": "VNA3031A506673", "owner": null, "history": [], "status": "Не назначен", "city": "Свободный"
+      "id": "4",
+      "type": "Монитор",
+      "model": "Lenovo ThinkVision TO15",
+      "serialNumber": "VNA3031A506673",
+      "owner": null,
+      "history": [],
+      "status": "Не назначен",
+      "city": "Свободный"
     },
     {
-      "id": "5", "type": "Монитор", "model": "Lenovo ThinkVision TO15", "serialNumber": "VNA3031A506673", "owner": null, "history": [], "status": "Не назначен", "city": "Свободный"
+      "id": "5",
+      "type": "Монитор",
+      "model": "Lenovo ThinkVision TO15",
+      "serialNumber": "VNA3031A506673",
+      "owner": null,
+      "history": [],
+      "status": "Не назначен",
+      "city": "Свободный"
+    },
+    {
+      "model": "asdasd",
+      "type": "123123sasd",
+      "serialNumber": "фыв",
+      "city": "Свободный",
+      "owner": "Склад",
+      "id": "95fc81ec-3977-4cbb-9f78-f3a6b4b0b457",
+      "status": "Не назначено",
+      "history": [
+        {
+          "id": "ac664b4b-c61b-47a6-8769-5c6275f93596",
+          "prevOwner": "",
+          "comments": "Создал",
+          "date": "22.10.2023, 22:28:48",
+          "lastModified": "Демо пользователь"
+        }
+      ]
+    },
+    {
+      "model": "Lenovo Thinasdsdsasd",
+      "type": "123123sasd",
+      "serialNumber": "1",
+      "city": "Москва",
+      "owner": "Склад",
+      "id": "7bf67541-8a80-42d1-9062-6979a0bc07b5",
+      "status": "Не назначено",
+      "history": [
+        {
+          "id": "aa9d5135-9ca2-4ee5-a68c-019ddf6e6068",
+          "prevOwner": "",
+          "comments": "Создал",
+          "date": "22.10.2023, 22:34:55",
+          "lastModified": "Демо пользователь"
+        }
+      ]
     }
   ],
-  "users":[
+  "users": [
     {
-      "id": "1", "name": "Иван", "secondName": "Иванович", "surname": "Иванов", "email": "user@mail.ru", "city": "Москва", "fullName": "Иванов Иван Иванович", "assets": []
+      "id": "1",
+      "name": "Иван",
+      "secondName": "Иванович",
+      "surname": "Иванов",
+      "email": "user@mail.ru",
+      "city": "Москва",
+      "fullName": "Иванов Иван Иванович",
+      "assets": []
     },
     {
-      "id": "2", "name": "Сергей", "secondName": "Петрович", "surname": "Иванов", "email": "user@mail.ru", "city": "Москва", "fullName": "Иванов Сергей Петроаич", "assets": []
+      "id": "2",
+      "name": "Сергей",
+      "secondName": "Петрович",
+      "surname": "Иванов",
+      "email": "user@mail.ru",
+      "city": "Москва",
+      "fullName": "Иванов Сергей Петроаич",
+      "assets": []
     },
-    { 
-      "id": "3", "name": "Петр", "secondName": "Петрович", "surname": "Петров", "email": "user@mail.ru", "city": "Свободный", "fullName": "Петров Петр Петрович", "assets": []
+    {
+      "id": "3",
+      "name": "Петр",
+      "secondName": "Петрович",
+      "surname": "Петров",
+      "email": "user@mail.ru",
+      "city": "Свободный",
+      "fullName": "Петров Петр Петрович",
+      "assets": []
     },
-    { 
-      "id": "4", "name": "Роман", "secondName": "Аркадьевич", "surname": "Иванов", "email": "user@mail.ru", "city": "Свободный", "fullName": "Иванов Роман Аркадьевич", "assets": []
+    {
+      "id": "4",
+      "name": "Роман",
+      "secondName": "Аркадьевич",
+      "surname": "Иванов",
+      "email": "user@mail.ru",
+      "city": "Свободный",
+      "fullName": "Иванов Роман Аркадьевич",
+      "assets": []
     },
-    { 
-      "id": "5", "name": "Равиль", "secondName": "Решатович", "surname": "Решалов", "email": "user@mail.ru", "city": "Москва", "fullName": "Решалов Равиль Решатович", "assets": []
+    {
+      "id": "5",
+      "name": "Равиль",
+      "secondName": "Решатович",
+      "surname": "Решалов",
+      "email": "user@mail.ru",
+      "city": "Москва",
+      "fullName": "Решалов Равиль Решатович",
+      "assets": []
     }
   ],
   "cities": [
     {
-      "id": "1", "name": "Москва"
+      "id": "1",
+      "name": "Москва"
     },
     {
-      "id": "2", "name": "Свободный"
+      "id": "2",
+      "name": "Свободный"
     }
   ]
 }

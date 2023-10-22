@@ -31,6 +31,11 @@ const AssetsTable = ({ assets }:tableProps) => {
       key: 'owner',
     },
     {
+      title: 'Город',
+      dataIndex: 'city',
+      key: 'city',
+    },
+    {
       title: 'Статус',
       dataIndex: 'status',
       key: 'status',

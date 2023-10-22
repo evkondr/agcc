@@ -20,7 +20,7 @@ export const citySlice = createSlice({
   reducers: {},
   extraReducers: (buider) => {
     buider.addCase(fetchAllCities.fulfilled, (state, action) => {
-      state.cities.push(action.payload);
+      state.cities = action.payload;
     });
     buider.addCase(fetchAllCities.rejected, (state, action) => {
       state.error = action.payload as string;

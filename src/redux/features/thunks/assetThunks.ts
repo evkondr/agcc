@@ -24,3 +24,14 @@ export const fetchAssetById = createAsyncThunk<IAssetModel, string, {rejectValue
     return thunkApi.rejectWithValue('Ошибка запроса');
   }
 });
+export const addNewAsset = createAsyncThunk<IAssetModel, IAssetModel, {rejectValue: string}>('asset/addNewAsset', async (asset, thunkApi) => {
+  try {
+    const response = await axios.post('/assets', asset);
+    return response.data;
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      return thunkApi.rejectWithValue(e.message);
+    }
+    return thunkApi.rejectWithValue('Ошибка запроса');
+  }
+});
