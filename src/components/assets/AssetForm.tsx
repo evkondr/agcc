@@ -10,6 +10,7 @@ import {
   Form,
   Input,
   Select,
+  Row,
 } from 'antd';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -99,16 +100,21 @@ const AssetCard = ({ currentAsset, loggedUser }: IAssetFormProps) => {
           <Input />
         </Form.Item>
         <Form.Item>
-          <Button htmlType="submit" style={{ marginRight: '10px' }}>{currentAsset ? 'Обновить' : 'Создать'}</Button>
-          {currentAsset && (
-          <Button
-            htmlType="button"
-            onClick={() => setDisabled(!disabled)}
-            disabled={false}
-          >
-            {disabled ? 'Редактировать' : 'Отменить'}
-          </Button>
-          )}
+          <Row justify="space-between">
+            <Button htmlType="submit">{currentAsset ? 'Обновить' : 'Создать'}</Button>
+            {currentAsset && (
+            <Button
+              htmlType="button"
+              onClick={() => setDisabled(!disabled)}
+              disabled={false}
+            >
+              {disabled ? 'Редактировать' : 'Отменить'}
+            </Button>
+            )}
+            <Button type="primary" danger>
+              Удалить
+            </Button>
+          </Row>
         </Form.Item>
       </Form>
       {/* <Row>
