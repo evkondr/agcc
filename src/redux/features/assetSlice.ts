@@ -2,7 +2,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { addNewAsset, fetchAllAssets, fetchAssetById } from './thunks/assetThunks';
+import {
+  addNewAsset, deleteAsset, fetchAllAssets, fetchAssetById,
+} from './thunks/assetThunks';
 
 import { IAssetModel } from '../../types';
 
@@ -75,6 +77,18 @@ export const assetsSlice = createSlice({
     builder.addCase(addNewAsset.rejected, (state, aciton) => {
       state.loading = false;
       state.error = aciton.payload as string;
+    });
+    // Delete asset
+    builder.addCase(deleteAsset.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteAsset.fulfilled, (state) => {
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(deleteAsset.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
     });
   },
 });

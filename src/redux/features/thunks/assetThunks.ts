@@ -35,3 +35,14 @@ export const addNewAsset = createAsyncThunk<IAssetModel, IAssetModel, {rejectVal
     return thunkApi.rejectWithValue('Ошибка запроса');
   }
 });
+export const deleteAsset = createAsyncThunk<IAssetModel, string, {rejectValue: string}>('asset/deleteAsset', async (assetId, thunkApi) => {
+  try {
+    const response = await axios.delete(`/assets/${assetId}`);
+    return response.data;
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      return thunkApi.rejectWithValue(e.message);
+    }
+    return thunkApi.rejectWithValue('Ошибка запроса');
+  }
+});
