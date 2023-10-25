@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import {
   Button,
   Form,
@@ -17,21 +17,35 @@ import { v4 as uuidv4 } from 'uuid';
 import HistoryTable from './HistoryTable';
 import { IAssetModel, ICity, assetStatus } from '../../types';
 import { updateCurrentAsset } from '../../redux/features/assetSlice';
-import { addNewAsset } from '../../redux/features/thunks/assetThunks';
+import { addNewAsset, deleteAsset } from '../../redux/features/thunks/assetThunks';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import fetchAllCities from '../../redux/features/thunks/cityThunks';
+import CustomModal from '../CustomModal';
 
 const { Option } = Select;
+
 interface IAssetFormProps {
   currentAsset?:IAssetModel;
+  cities:ICity[] | [];
   loggedUser: string | null;
 }
-const AssetCard = ({ currentAsset, loggedUser }: IAssetFormProps) => {
+const AssetCard = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   const [disabled, setDisabled] = useState<boolean>(false);
-  const { cities } = useAppSelector((state) => state.cities);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
   const citiesOptions = cities.map((item:ICity) => ({ value: item.name, label: item.name }));
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
+  const handleOk = () => {
+    if (currentAsset) {
+      dispatch(deleteAsset(currentAsset.id as string));
+      navigate('/');
+    }
+    setIsModalOpen(false);
+  };
+  const hamdleCancel = () => {
+    setIsModalOpen(false);
+  };
   const onFinish = (values:IAssetModel) => {
     if (currentAsset) {
       // If asset provided, then it may be updated
@@ -71,7 +85,6 @@ const AssetCard = ({ currentAsset, loggedUser }: IAssetFormProps) => {
     if (currentAsset) {
       setDisabled(true);
     }
-    dispatch(fetchAllCities());
   }, [currentAsset, dispatch]);
   console.log(cities);
   return (
@@ -103,17 +116,19 @@ const AssetCard = ({ currentAsset, loggedUser }: IAssetFormProps) => {
           <Row justify="space-between">
             <Button htmlType="submit">{currentAsset ? 'Обновить' : 'Создать'}</Button>
             {currentAsset && (
-            <Button
-              htmlType="button"
-              onClick={() => setDisabled(!disabled)}
-              disabled={false}
-            >
-              {disabled ? 'Редактировать' : 'Отменить'}
-            </Button>
+            <>
+              <Button
+                htmlType="button"
+                onClick={() => setDisabled(!disabled)}
+                disabled={false}
+              >
+                {disabled ? 'Редактировать' : 'Отменить'}
+              </Button>
+              <Button type="primary" danger onClick={() => setIsModalOpen(true)}>
+                Удалить
+              </Button>
+            </>
             )}
-            <Button type="primary" danger>
-              Удалить
-            </Button>
           </Row>
         </Form.Item>
       </Form>
@@ -126,6 +141,9 @@ const AssetCard = ({ currentAsset, loggedUser }: IAssetFormProps) => {
           </div>
           )}
       </Row> */}
+      <CustomModal title="Удаление актва" isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={hamdleCancel}>
+        Вы уверены?
+      </CustomModal>
     </>
   );
 };

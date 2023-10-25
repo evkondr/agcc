@@ -49,42 +49,6 @@
       "history": [],
       "status": "Не назначен",
       "city": "Свободный"
-    },
-    {
-      "model": "asdasd",
-      "type": "123123sasd",
-      "serialNumber": "фыв",
-      "city": "Свободный",
-      "owner": "Склад",
-      "id": "95fc81ec-3977-4cbb-9f78-f3a6b4b0b457",
-      "status": "Не назначено",
-      "history": [
-        {
-          "id": "ac664b4b-c61b-47a6-8769-5c6275f93596",
-          "prevOwner": "",
-          "comments": "Создал",
-          "date": "22.10.2023, 22:28:48",
-          "lastModified": "Демо пользователь"
-        }
-      ]
-    },
-    {
-      "model": "Lenovo Thinasdsdsasd",
-      "type": "123123sasd",
-      "serialNumber": "1",
-      "city": "Москва",
-      "owner": "Склад",
-      "id": "7bf67541-8a80-42d1-9062-6979a0bc07b5",
-      "status": "Не назначено",
-      "history": [
-        {
-          "id": "aa9d5135-9ca2-4ee5-a68c-019ddf6e6068",
-          "prevOwner": "",
-          "comments": "Создал",
-          "date": "22.10.2023, 22:34:55",
-          "lastModified": "Демо пользователь"
-        }
-      ]
     }
   ],
   "users": [

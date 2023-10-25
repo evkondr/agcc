@@ -4,14 +4,15 @@ import { Modal } from 'antd';
 type CustomModalProps = {
   children: React.ReactNode,
   handleOk: () => void,
-  handleCancel: () => void
-  isModalOpen: boolean
+  handleCancel: () => void,
+  isModalOpen: boolean,
+  title: string;
 }
 const CustomModal = ({
-  children, handleOk, handleCancel, isModalOpen,
+  children, handleOk, handleCancel, isModalOpen, title,
 }:CustomModalProps) => {
   return (
-    <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+    <Modal title={title} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
       {children}
     </Modal>
   );
