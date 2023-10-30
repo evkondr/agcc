@@ -5,8 +5,15 @@
       "type": "Ноутбук",
       "model": "Lenovo ThinkPad x270",
       "serialNumber": "VNA3031A506673",
-      "owner": null,
-      "history": [],
+      "owner": "Иванов",
+      "history": [
+        {
+          "owner": "склад",
+          "date": "30.10.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        }
+      ],
       "status": "Не назначен",
       "city": "Москва"
     },
@@ -26,7 +33,29 @@
       "model": "Lenovo ThinkVision T2",
       "serialNumber": "VNA3031A506673",
       "owner": null,
-      "history": [],
+      "history": [
+        {
+          "prevOwner": "склад",
+          "date": "30.10.2023",
+          "comments": "asdasdsd",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "date": "30.10.2023",
+          "comments": "asdasdsd",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "date": "30.10.2023",
+          "comments": "asdasdsd",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "date": "30.10.2023",
+          "comments": "asdasdsd",
+          "lastModified": "Демо пользователь"
+        }
+      ],
       "status": "Не назначен",
       "city": "Свободный"
     },
@@ -35,8 +64,27 @@
       "type": "Монитор",
       "model": "Lenovo ThinkVision TO15",
       "serialNumber": "VNA3031A506673",
-      "owner": null,
-      "history": [],
+      "owner": "Ивановdfd",
+      "history": [
+        {
+          "owner": "склад",
+          "date": "30.10.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Иванов",
+          "date": "30.10.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Ивановdfd",
+          "date": "30.10.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        }
+      ],
       "status": "Не назначен",
       "city": "Свободный"
     },
@@ -45,10 +93,45 @@
       "type": "Монитор",
       "model": "Lenovo ThinkVision TO15",
       "serialNumber": "VNA3031A506673",
-      "owner": null,
-      "history": [],
+      "owner": "Иванов D",
+      "history": [
+        {
+          "prevOwner": "склад",
+          "date": "30.10.2023",
+          "comments": "asdasdsd",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Иванов",
+          "date": "30.10.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Иванов D",
+          "date": "30.10.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        }
+      ],
       "status": "Не назначен",
-      "city": "Свободный"
+      "city": "Свободный",
+      "data": {
+        "id": "5",
+        "model": "Lenovo ThinkVision TO15",
+        "type": "Монитор",
+        "serialNumber": "VNA3031A506673asdsd",
+        "city": "Свободный",
+        "owner": null,
+        "history": [
+          {
+            "prevOwner": "склад",
+            "date": "30.10.2023",
+            "comments": "asdasdsd",
+            "lastModified": "Демо пользователь"
+          }
+        ]
+      }
     }
   ],
   "users": [

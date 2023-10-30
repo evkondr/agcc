@@ -16,8 +16,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import HistoryTable from './HistoryTable';
 import { IAssetModel, ICity, assetStatus } from '../../types';
-import { updateCurrentAsset } from '../../redux/features/assetSlice';
-import { addNewAsset, deleteAsset } from '../../redux/features/thunks/assetThunks';
+import { addNewAsset, deleteAsset, updateAsset } from '../../redux/features/thunks/assetThunks';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import fetchAllCities from '../../redux/features/thunks/cityThunks';
 import CustomModal from '../CustomModal';
@@ -49,19 +48,19 @@ const AssetCard = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   const onFinish = (values:IAssetModel) => {
     if (currentAsset) {
       // If asset provided, then it may be updated
-      let prevOwner:string;
+      let owner:string;
       if (currentAsset.history.length > 0) {
-        prevOwner = values.owner?.fullName as string;
+        owner = values.owner as string;
       } else {
-        prevOwner = 'склад';
+        owner = 'склад';
       }
       const assetUpdates:IAssetModel = {
         ...values,
         history: [...currentAsset.history, {
-          prevOwner, date: new Date().toLocaleDateString(), comments: 'asdasdsd', lastModified: loggedUser as string,
+          owner, date: new Date().toLocaleDateString(), comments: 'обновлен', lastModified: loggedUser as string,
         }],
       };
-      dispatch(updateCurrentAsset({ assetID: currentAsset.id as string, asset: assetUpdates }));
+      dispatch(updateAsset({ id: currentAsset.id, ...assetUpdates }));
       setDisabled(true);
     } else {
       // Else it may be created
@@ -72,7 +71,7 @@ const AssetCard = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
         status: assetStatus.notAssigned,
         history: [{
           id: uuidv4(),
-          prevOwner: '',
+          owner: 'склад',
           comments: 'Создал',
           date: new Date().toLocaleString(),
           lastModified: loggedUser as string,
@@ -84,9 +83,9 @@ const AssetCard = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   useEffect(() => {
     if (currentAsset) {
       setDisabled(true);
+      console.log(currentAsset.history);
     }
   }, [currentAsset, dispatch]);
-  console.log(cities);
   return (
     <>
       <Form
@@ -132,16 +131,16 @@ const AssetCard = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
           </Row>
         </Form.Item>
       </Form>
-      {/* <Row>
-        {currentAsset.history && currentAsset.history.length > 0
+      <Row>
+        {currentAsset && currentAsset.history && currentAsset.history.length > 0
           && (
           <div style={{ width: '90%' }}>
             <h5 style={{ fontSize: '25px' }}>История</h5>
             <HistoryTable history={currentAsset.history} />
           </div>
           )}
-      </Row> */}
-      <CustomModal title="Удаление актва" isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={hamdleCancel}>
+      </Row>
+      <CustomModal title="Удаление актива" isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={hamdleCancel}>
         Вы уверены?
       </CustomModal>
     </>

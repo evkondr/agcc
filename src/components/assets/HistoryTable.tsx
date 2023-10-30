@@ -14,9 +14,9 @@ const HistoryTable = ({ history }:tableProps) => {
       key: 'date',
     },
     {
-      title: 'Прошлое место положение',
-      dataIndex: 'prevOwner',
-      key: 'prevOwner',
+      title: 'Место положение',
+      dataIndex: 'owner',
+      key: 'owner',
     },
     {
       title: 'Комментарий',

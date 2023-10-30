@@ -13,7 +13,7 @@ export interface IUser{
 }
 export interface IHistory{
   id?:string,
-  prevOwner: string;
+  owner: string;
   date:string,
   comments:string,
   lastModified:string
@@ -28,7 +28,7 @@ export interface IAssetModel{
   type:string,
   model:string,
   serialNumber:string,
-  owner: IUser | null
+  owner: string,
   history: IHistory[],
   status:assetStatus,
   city:string

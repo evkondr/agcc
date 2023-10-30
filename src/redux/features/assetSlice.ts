@@ -1,9 +1,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
 import {
-  addNewAsset, deleteAsset, fetchAllAssets, fetchAssetById,
+  addNewAsset, deleteAsset, fetchAllAssets, fetchAssetById, updateAsset,
 } from './thunks/assetThunks';
 
 import { IAssetModel } from '../../types';
@@ -27,15 +26,6 @@ export const assetsSlice = createSlice({
   reducers: {
     resetCurrentAsset: (state) => {
       state.currentAsset = undefined;
-    },
-    updateCurrentAsset: (state, action: PayloadAction<{assetID:string, asset:IAssetModel}>) => {
-      const { assetID, asset } = action.payload;
-      state.assets = state.assets.map((item) => {
-        if (item.id === assetID) {
-          return { ...asset, id: item.id };
-        }
-        return item;
-      });
     },
   },
   extraReducers: (builder) => {
@@ -90,9 +80,22 @@ export const assetsSlice = createSlice({
       state.loading = false;
       state.error = action.payload as string;
     });
+    // Update asset
+    builder.addCase(updateAsset.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateAsset.fulfilled, (state, action) => {
+      state.currentAsset = action.payload;
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(updateAsset.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    });
   },
 });
 
-export const { resetCurrentAsset, updateCurrentAsset } = assetsSlice.actions;
+export const { resetCurrentAsset } = assetsSlice.actions;
 
 export default assetsSlice.reducer;
