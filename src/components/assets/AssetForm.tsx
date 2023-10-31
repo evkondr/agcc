@@ -15,26 +15,37 @@ import {
 
 import { v4 as uuidv4 } from 'uuid';
 import HistoryTable from './HistoryTable';
-import { IAssetModel, ICity, assetStatus } from '../../types';
+import {
+  IAssetModel, ICity, IUser, assetStatus,
+} from '../../types';
 import { addNewAsset, deleteAsset, updateAsset } from '../../redux/features/thunks/assetThunks';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import fetchAllCities from '../../redux/features/thunks/cityThunks';
 import CustomModal from '../CustomModal';
-
-const { Option } = Select;
+import { findUsersByFullName } from '../../redux/features/thunks/userThunks';
 
 interface IAssetFormProps {
   currentAsset?:IAssetModel;
   cities:ICity[] | [];
   loggedUser: string | null;
 }
-const AssetCard = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
+const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   const [disabled, setDisabled] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const { foundUsers } = useAppSelector((state) => state.users);
+  const usersOptions = foundUsers.map((item:IUser) => ({
+    value: item.fullName,
+    label: item.fullName,
+  }));
   const navigate = useNavigate();
   const citiesOptions = cities.map((item:ICity) => ({ value: item.name, label: item.name }));
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
+  // On user search
+  const onSearch = (value: string) => {
+    // TODO: validation
+    dispatch(findUsersByFullName(value));
+  };
+  // Handle click Ok on modal
   const handleOk = () => {
     if (currentAsset) {
       dispatch(deleteAsset(currentAsset.id as string));
@@ -42,9 +53,11 @@ const AssetCard = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
     }
     setIsModalOpen(false);
   };
+  // Handle click Cancel on modal
   const hamdleCancel = () => {
     setIsModalOpen(false);
   };
+  // Submit form handler
   const onFinish = (values:IAssetModel) => {
     if (currentAsset) {
       // If asset provided, then it may be updated
@@ -83,7 +96,6 @@ const AssetCard = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   useEffect(() => {
     if (currentAsset) {
       setDisabled(true);
-      console.log(currentAsset.history);
     }
   }, [currentAsset, dispatch]);
   return (
@@ -109,7 +121,7 @@ const AssetCard = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
           <Select placeholder="Выбрать город" options={citiesOptions} />
         </Form.Item>
         <Form.Item label="Расположение" name="owner">
-          <Input />
+          <Select showSearch onSearch={onSearch} options={usersOptions} />
         </Form.Item>
         <Form.Item>
           <Row justify="space-between">
@@ -147,4 +159,4 @@ const AssetCard = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   );
 };
 
-export default AssetCard;
+export default AssetForm;

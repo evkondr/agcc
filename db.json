@@ -93,7 +93,7 @@
       "type": "Монитор",
       "model": "Lenovo ThinkVision TO15",
       "serialNumber": "VNA3031A506673",
-      "owner": "Иванов D",
+      "owner": "Петров Петр Петрович",
       "history": [
         {
           "prevOwner": "склад",
@@ -110,6 +110,18 @@
         {
           "owner": "Иванов D",
           "date": "30.10.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Петров Петр Петрович",
+          "date": "31.10.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Петров Петр Петрович",
+          "date": "31.10.2023",
           "comments": "обновлен",
           "lastModified": "Демо пользователь"
         }

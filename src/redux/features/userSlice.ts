@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { fetchAllUsers, fetchUserById } from './thunks/userThunks';
+import { fetchAllUsers, fetchUserById, findUsersByFullName } from './thunks/userThunks';
 
 import { IUser } from '../../types';
 
@@ -74,6 +74,18 @@ export const usersSlice = createSlice({
       state.error = null;
     });
     builder.addCase(fetchUserById.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    });
+    // Find users by full name
+    builder.addCase(findUsersByFullName.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(findUsersByFullName.fulfilled, (state, action) => {
+      state.loading = false;
+      state.foundUsers = action.payload;
+    });
+    builder.addCase(findUsersByFullName.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;
     });
