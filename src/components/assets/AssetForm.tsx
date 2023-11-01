@@ -21,7 +21,7 @@ import {
 import { addNewAsset, deleteAsset, updateAsset } from '../../redux/features/thunks/assetThunks';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import CustomModal from '../CustomModal';
-import { findUsersByFullName } from '../../redux/features/thunks/userThunks';
+import { findUsersByFullName, putAssetToUser } from '../../redux/features/thunks/userThunks';
 
 interface IAssetFormProps {
   currentAsset?:IAssetModel;
@@ -45,6 +45,10 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
     // TODO: validation
     dispatch(findUsersByFullName(value));
   };
+  // On user change
+  const onChange = (value: string) => {
+    dispatch(findUsersByFullName(value));
+  };
   // Handle click Ok on modal
   const handleOk = () => {
     if (currentAsset) {
@@ -62,6 +66,7 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
     if (currentAsset) {
       // If asset provided, then it may be updated
       let owner:string;
+      const { id, assets } = foundUsers[0];
       if (currentAsset.history.length > 0) {
         owner = values.owner as string;
       } else {
@@ -74,6 +79,7 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
         }],
       };
       dispatch(updateAsset({ id: currentAsset.id, ...assetUpdates }));
+      dispatch(putAssetToUser({ userId: id as string, assets: [...assets, currentAsset] }));
       setDisabled(true);
     } else {
       // Else it may be created
@@ -121,7 +127,7 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
           <Select placeholder="Выбрать город" options={citiesOptions} />
         </Form.Item>
         <Form.Item label="Расположение" name="owner">
-          <Select showSearch onSearch={onSearch} options={usersOptions} />
+          <Select showSearch onSearch={onSearch} options={usersOptions} onChange={onChange} />
         </Form.Item>
         <Form.Item>
           <Row justify="space-between">

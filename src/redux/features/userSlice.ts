@@ -1,6 +1,11 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { fetchAllUsers, fetchUserById, findUsersByFullName } from './thunks/userThunks';
+import {
+  fetchAllUsers,
+  fetchUserById,
+  findUsersByFullName,
+  putAssetToUser,
+} from './thunks/userThunks';
 
 import { IUser } from '../../types';
 
@@ -86,6 +91,17 @@ export const usersSlice = createSlice({
       state.foundUsers = action.payload;
     });
     builder.addCase(findUsersByFullName.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    });
+    // put Asset to user
+    builder.addCase(putAssetToUser.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(putAssetToUser.fulfilled, (state) => {
+      state.loading = false;
+    });
+    builder.addCase(putAssetToUser.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;
     });
