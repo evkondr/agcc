@@ -8,6 +8,7 @@ import LoginPage from './components/pages/LoginPage';
 import SingleUserPage from './components/pages/SingleUserPage';
 import SingleAssetPage from './components/pages/SingleAssetPage';
 import AddAssetPage from './components/pages/AddAssetPage';
+import HomePage from './components/pages/HomePage';
 
 const AppRouter = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const AppRouter = createBrowserRouter([
     children: [
       {
         path: '/',
+        element: <HomePage />,
+      },
+      {
+        path: 'assets/',
         element: <AssetsPage />,
       },
       {

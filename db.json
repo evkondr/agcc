@@ -22,8 +22,15 @@
       "type": "Ноутбук",
       "model": "Lenovo ThinkPad x315",
       "serialNumber": "VNA3031A506673",
-      "owner": null,
-      "history": [],
+      "owner": "Иванов Иван Иванович",
+      "history": [
+        {
+          "owner": "склад",
+          "date": "07.11.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        }
+      ],
       "status": "Не назначен",
       "city": "Москва"
     },
@@ -209,6 +216,16 @@
               "lastModified": "Демо пользователь"
             }
           ]
+        },
+        {
+          "id": "2",
+          "type": "Ноутбук",
+          "model": "Lenovo ThinkPad x315",
+          "serialNumber": "VNA3031A506673",
+          "owner": null,
+          "history": [],
+          "status": "Не назначен",
+          "city": "Москва"
         }
       ]
     },

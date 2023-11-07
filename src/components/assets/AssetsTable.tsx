@@ -13,7 +13,7 @@ const AssetsTable = ({ assets }:tableProps) => {
       title: 'Модель',
       dataIndex: 'model',
       key: 'model',
-      render: (text, record) => <NavLink to={`assets/${record.id}`}>{text}</NavLink>,
+      render: (text, record) => <NavLink to={`/assets/${record.id}`}>{text}</NavLink>,
     },
     {
       title: 'Тип',
