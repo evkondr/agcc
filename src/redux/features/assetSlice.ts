@@ -2,16 +2,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  addNewAsset, deleteAsset, fetchAllAssets, fetchAssetById, updateAsset,
+  addNewAsset, deleteAsset, fetchAllAssets, fetchAssetById, fetchCurrentAssetOwner, updateAsset,
 } from './thunks/assetThunks';
 
-import { IAssetModel } from '../../types';
+import { IAssetModel, IUser } from '../../types';
 
 interface assetsState {
   assets: IAssetModel[],
-  currentAsset: IAssetModel | undefined
-  loading: boolean
-  error: null | string
+  currentAsset: IAssetModel | undefined,
+  currentOwner: IUser | null,
+  loading: boolean,
+  error: null | string,
 }
 
 const initialState: assetsState = {
@@ -19,6 +20,7 @@ const initialState: assetsState = {
   currentAsset: undefined,
   loading: false,
   error: null,
+  currentOwner: null,
 };
 export const assetsSlice = createSlice({
   name: 'assets',
@@ -92,6 +94,18 @@ export const assetsSlice = createSlice({
     builder.addCase(updateAsset.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;
+    });
+    // Fetch current owner
+    builder.addCase(fetchCurrentAssetOwner.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchCurrentAssetOwner.fulfilled, (state, aciton) => {
+      state.loading = false;
+      state.currentOwner = aciton.payload;
+    });
+    builder.addCase(fetchCurrentAssetOwner.rejected, (state, aciton) => {
+      state.loading = false;
+      state.error = aciton.payload as string;
     });
   },
 });

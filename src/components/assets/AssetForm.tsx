@@ -18,10 +18,13 @@ import HistoryTable from './HistoryTable';
 import {
   IAssetModel, ICity, IUser, assetStatus,
 } from '../../types';
-import { addNewAsset, deleteAsset, updateAsset } from '../../redux/features/thunks/assetThunks';
+import {
+  addNewAsset, deleteAsset, fetchCurrentAssetOwner, updateAsset,
+} from '../../redux/features/thunks/assetThunks';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import CustomModal from '../CustomModal';
 import { findUsersByFullName, putAssetToUser } from '../../redux/features/thunks/userThunks';
+import filterUserAssets from '../../uitls/filterUserAssets';
 
 interface IAssetFormProps {
   currentAsset?:IAssetModel;
@@ -32,6 +35,7 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   const [disabled, setDisabled] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { foundUsers } = useAppSelector((state) => state.users);
+  const { currentOwner } = useAppSelector((state) => state.assets);
   const usersOptions = foundUsers.map((item:IUser) => ({
     value: item.fullName,
     label: item.fullName,
@@ -78,6 +82,10 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
           owner, date: new Date().toLocaleDateString(), comments: 'обновлен', lastModified: loggedUser as string,
         }],
       };
+      if (currentOwner && currentAsset.id) {
+        const filtredAssets = filterUserAssets(currentOwner?.assets, currentAsset.id);
+        dispatch(putAssetToUser({ userId: currentOwner.id as string, assets: filtredAssets }));
+      }
       dispatch(updateAsset({ id: currentAsset.id, ...assetUpdates }));
       dispatch(putAssetToUser({ userId: id as string, assets: [...assets, currentAsset] }));
       setDisabled(true);
@@ -103,6 +111,11 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
     if (currentAsset) {
       setDisabled(true);
     }
+    return () => {
+      if (currentAsset) {
+        dispatch(fetchCurrentAssetOwner(currentAsset.owner));
+      }
+    };
   }, [currentAsset, dispatch]);
   return (
     <>
