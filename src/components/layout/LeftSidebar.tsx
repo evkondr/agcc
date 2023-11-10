@@ -12,13 +12,13 @@ type MenuItem = Required<MenuProps>['items'][number];
 const { Sider } = Layout;
 const menuItems:MenuItem[] = [
   getMenuItems('Пользователи', 1, <UserOutlined />, [
-    getMenuItems(<NavLink to="/users?location=Свободный">Свободный</NavLink>, 'sub1'),
-    getMenuItems(<NavLink to="/users?location=Москва">Москва</NavLink>, 'sub2'),
+    getMenuItems(<NavLink to="/users?city=Свободный">Свободный</NavLink>, 'sub1'),
+    getMenuItems(<NavLink to="/users?city=Москва">Москва</NavLink>, 'sub2'),
     getMenuItems(<NavLink to="/users/add">Добавить</NavLink>, 'sub3', <UserAddOutlined />),
   ]),
   getMenuItems('Склад', 2, <ShopOutlined />, [
-    getMenuItems('Свободный', 'sub4'),
-    getMenuItems('Москва', 'sub5'),
+    getMenuItems(<NavLink to="/assets?city=Свободный">Свободный</NavLink>, 'sub4'),
+    getMenuItems(<NavLink to="/assets?city=Москва">Москва</NavLink>, 'sub5'),
     getMenuItems(<NavLink to="/assets/add">Добавить</NavLink>, 'sub6', <DesktopOutlined />),
   ]),
 ];

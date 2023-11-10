@@ -2,13 +2,13 @@ import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import AssetsPage from './components/pages/AssetsPage';
-import AllUsersPage from './components/pages/AllUsersPage';
 import AddUserPage from './components/pages/AddUserPage';
 import LoginPage from './components/pages/LoginPage';
 import SingleUserPage from './components/pages/SingleUserPage';
 import SingleAssetPage from './components/pages/SingleAssetPage';
 import AddAssetPage from './components/pages/AddAssetPage';
 import HomePage from './components/pages/HomePage';
+import UsersPage from './components/pages/UsersPage';
 
 const AppRouter = createBrowserRouter([
   {
@@ -33,7 +33,7 @@ const AppRouter = createBrowserRouter([
       },
       {
         path: 'users/',
-        element: <AllUsersPage />,
+        element: <UsersPage />,
       },
       {
         path: 'users/:userID',

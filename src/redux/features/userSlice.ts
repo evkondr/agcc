@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import {
   fetchAllUsers,
   fetchUserById,
+  fetchUsersByLocation,
   findUsersByFullName,
   putAssetToUser,
 } from './thunks/userThunks';
@@ -104,6 +105,18 @@ export const usersSlice = createSlice({
     builder.addCase(putAssetToUser.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;
+    });
+    // fetching users by location
+    builder.addCase(fetchUsersByLocation.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchUsersByLocation.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      state.users = payload;
+    });
+    builder.addCase(fetchUsersByLocation.rejected, (state, { payload }) => {
+      state.loading = false;
+      state.error = payload as string;
     });
   },
 });

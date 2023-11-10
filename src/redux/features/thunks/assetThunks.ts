@@ -68,3 +68,14 @@ export const fetchCurrentAssetOwner = createAsyncThunk<IUser, string, {rejectVal
     return thunkApi.rejectWithValue('Ошибка запроса');
   }
 });
+export const fetchAssetsByLocation = createAsyncThunk<IAssetModel[], string, {rejectValue: string}>('assets/fetchAssetsByLocation', async (location, thunkApi) => {
+  try {
+    const response = await axios.get(`/assets?city=${location}`);
+    return response.data;
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      return thunkApi.rejectWithValue(e.message);
+    }
+    return thunkApi.rejectWithValue('Ошибка запроса');
+  }
+});

@@ -2,20 +2,25 @@ import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import UsersTable from '../users/UsersTable';
-import { getUsersByLocation } from '../../redux/features/userSlice';
-import { fetchAllUsers } from '../../redux/features/thunks/userThunks';
+import { fetchAllUsers, fetchUsersByLocation } from '../../redux/features/thunks/userThunks';
 
 const UsersPage = () => {
   const [searchParams] = useSearchParams();
-  const { foundUsers } = useAppSelector((state) => state.users);
+  const { users, loading } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
-  const location = searchParams.get('location');
+  const location = searchParams.get('city');
   useEffect(() => {
-    dispatch(fetchAllUsers());
-    dispatch(getUsersByLocation(location as string));
-  }, [location, dispatch]);
+    if (location) {
+      dispatch(fetchUsersByLocation(location as string));
+    } else {
+      dispatch(fetchAllUsers());
+    }
+  }, [location, dispatch, searchParams]);
+  if (loading) {
+    return <div>Загрузка...</div>;
+  }
   return (
-    <UsersTable users={foundUsers} />
+    <UsersTable users={users} />
   );
 };
 

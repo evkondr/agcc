@@ -1,14 +1,21 @@
 import React, { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import AssetsTable from '../assets/AssetsTable';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchAllAssets } from '../../redux/features/thunks/assetThunks';
+import { fetchAllAssets, fetchAssetsByLocation } from '../../redux/features/thunks/assetThunks';
 
 const AssetsPage = () => {
+  const [searchParams] = useSearchParams();
+  const location = searchParams.get('city');
   const { assets, loading, error } = useAppSelector((state) => state.assets);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchAllAssets());
-  }, [dispatch]);
+    if (location) {
+      dispatch(fetchAssetsByLocation(location));
+    } else {
+      dispatch(fetchAllAssets());
+    }
+  }, [dispatch, location]);
   if (loading) {
     return (
       <div>

@@ -2,7 +2,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  addNewAsset, deleteAsset, fetchAllAssets, fetchAssetById, fetchCurrentAssetOwner, updateAsset,
+  addNewAsset,
+  deleteAsset,
+  fetchAllAssets,
+  fetchAssetById,
+  fetchAssetsByLocation,
+  fetchCurrentAssetOwner,
+  updateAsset,
 } from './thunks/assetThunks';
 
 import { IAssetModel, IUser } from '../../types';
@@ -106,6 +112,18 @@ export const assetsSlice = createSlice({
     builder.addCase(fetchCurrentAssetOwner.rejected, (state, aciton) => {
       state.loading = false;
       state.error = aciton.payload as string;
+    });
+    // Fetch assets by location
+    builder.addCase(fetchAssetsByLocation.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchAssetsByLocation.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      state.assets = payload;
+    });
+    builder.addCase(fetchAssetsByLocation.rejected, (state, { payload }) => {
+      state.loading = false;
+      state.error = payload as string;
     });
   },
 });
