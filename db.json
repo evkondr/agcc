@@ -51,7 +51,7 @@
       "type": "Монитор",
       "model": "Lenovo ThinkVision T2",
       "serialNumber": "VNA3031A506673",
-      "owner": null,
+      "owner": "Петров Петр Петрович",
       "history": [
         {
           "prevOwner": "склад",
@@ -72,6 +72,18 @@
         {
           "date": "30.10.2023",
           "comments": "asdasdsd",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Решалов Равиль Решатович",
+          "date": "11.11.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Петров Петр Петрович",
+          "date": "11.11.2023",
+          "comments": "обновлен",
           "lastModified": "Демо пользователь"
         }
       ],
@@ -234,26 +246,7 @@
       "email": "user@mail.ru",
       "city": "Москва",
       "fullName": "Иванов Иван Иванович",
-      "assets": [
-        {
-          "model": "Lenovo ThinkVision T2",
-          "type": "Монитор",
-          "serialNumber": "1232414232312",
-          "city": "Свободный",
-          "owner": "Иванов Иван Иванович",
-          "id": "4ae0e9f7-7b73-46ad-81a2-e568e6e015a3",
-          "status": "Не назначено",
-          "history": [
-            {
-              "id": "592f3071-031b-4e37-b893-a3f4f4010517",
-              "owner": "склад",
-              "comments": "Создал",
-              "date": "01.11.2023, 23:32:09",
-              "lastModified": "Демо пользователь"
-            }
-          ]
-        }
-      ]
+      "assets": []
     },
     {
       "id": "2",
@@ -275,85 +268,10 @@
       "fullName": "Петров Петр Петрович",
       "assets": [
         {
-          "id": "5",
+          "id": "3",
           "type": "Монитор",
-          "model": "Lenovo ThinkVision TO15",
-          "serialNumber": "VNA3031A506673",
-          "owner": "Решалов Равиль Решатович",
-          "history": [
-            {
-              "prevOwner": "склад",
-              "date": "30.10.2023",
-              "comments": "asdasdsd",
-              "lastModified": "Демо пользователь"
-            },
-            {
-              "owner": "Иванов",
-              "date": "30.10.2023",
-              "comments": "обновлен",
-              "lastModified": "Демо пользователь"
-            },
-            {
-              "owner": "Иванов D",
-              "date": "30.10.2023",
-              "comments": "обновлен",
-              "lastModified": "Демо пользователь"
-            },
-            {
-              "owner": "Петров Петр Петрович",
-              "date": "31.10.2023",
-              "comments": "обновлен",
-              "lastModified": "Демо пользователь"
-            },
-            {
-              "owner": "Петров Петр Петрович",
-              "date": "31.10.2023",
-              "comments": "обновлен",
-              "lastModified": "Демо пользователь"
-            },
-            {
-              "owner": "Решалов Равиль Решатович",
-              "date": "01.11.2023",
-              "comments": "обновлен",
-              "lastModified": "Демо пользователь"
-            },
-            {
-              "owner": "Решалов Равиль Решатович",
-              "date": "01.11.2023",
-              "comments": "обновлен",
-              "lastModified": "Демо пользователь"
-            },
-            {
-              "owner": "Петров Петр Петрович",
-              "date": "07.11.2023",
-              "comments": "обновлен",
-              "lastModified": "Демо пользователь"
-            },
-            {
-              "owner": "Решалов Равиль Решатович",
-              "date": "07.11.2023",
-              "comments": "обновлен",
-              "lastModified": "Демо пользователь"
-            }
-          ],
-          "status": "Не назначен",
-          "city": "Свободный",
-          "data": {
-            "id": "5",
-            "model": "Lenovo ThinkVision TO15",
-            "type": "Монитор",
-            "serialNumber": "VNA3031A506673asdsd",
-            "city": "Свободный",
-            "owner": null,
-            "history": [
-              {
-                "prevOwner": "склад",
-                "date": "30.10.2023",
-                "comments": "asdasdsd",
-                "lastModified": "Демо пользователь"
-              }
-            ]
-          }
+          "model": "Lenovo ThinkVision T2",
+          "serialNumber": "VNA3031A506673"
         }
       ]
     },
@@ -375,32 +293,7 @@
       "email": "user@mail.ru",
       "city": "Москва",
       "fullName": "Решалов Равиль Решатович",
-      "assets": [
-        {
-          "model": "Lenovo ThinkVision T2",
-          "type": "Монитор",
-          "serialNumber": "1232414232312",
-          "city": "Москва",
-          "owner": "Иванов Иван Иванович",
-          "id": "4ae0e9f7-7b73-46ad-81a2-e568e6e015a3",
-          "status": "Не назначено",
-          "history": [
-            {
-              "id": "592f3071-031b-4e37-b893-a3f4f4010517",
-              "owner": "склад",
-              "comments": "Создал",
-              "date": "01.11.2023, 23:32:09",
-              "lastModified": "Демо пользователь"
-            },
-            {
-              "owner": "Иванов Иван Иванович",
-              "date": "01.11.2023",
-              "comments": "обновлен",
-              "lastModified": "Демо пользователь"
-            }
-          ]
-        }
-      ]
+      "assets": []
     }
   ],
   "cities": [

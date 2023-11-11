@@ -16,7 +16,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import HistoryTable from './HistoryTable';
 import {
-  IAssetModel, ICity, IUser, assetStatus,
+  IAssetModel, IAssetModelShort, ICity, IUser, assetStatus,
 } from '../../types';
 import {
   addNewAsset, deleteAsset, fetchCurrentAssetOwner, updateAsset,
@@ -71,6 +71,12 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
       // If asset provided, then it may be updated
       let owner:string;
       const { id, assets } = foundUsers[0];
+      const assetToAdd:IAssetModelShort = {
+        id: currentAsset.id,
+        type: currentAsset.type,
+        model: currentAsset.model,
+        serialNumber: currentAsset.serialNumber,
+      };
       if (currentAsset.history.length > 0) {
         owner = values.owner as string;
       } else {
@@ -83,11 +89,12 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
         }],
       };
       if (currentOwner && currentAsset.id) {
+        // If owner was changed
         const filtredAssets = filterUserAssets(currentOwner?.assets, currentAsset.id);
         dispatch(putAssetToUser({ userId: currentOwner.id as string, assets: filtredAssets }));
       }
       dispatch(updateAsset({ id: currentAsset.id, ...assetUpdates }));
-      dispatch(putAssetToUser({ userId: id as string, assets: [...assets, currentAsset] }));
+      dispatch(putAssetToUser({ userId: id as string, assets: [...assets, assetToAdd] }));
       setDisabled(true);
     } else {
       // Else it may be created

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { IUser, IAssetModel } from '../../../types';
+import { IUser, IAssetModelShort } from '../../../types';
 
 export const fetchAllUsers = createAsyncThunk<IUser[], undefined, {rejectValue:string}>('users/fetchAllUsers', async (_, thunkApi) => {
   try {
@@ -46,7 +46,7 @@ export const fetchUsersByLocation = createAsyncThunk<IUser[], string, {rejectVal
     return thunkApi.rejectWithValue('Что-то пошло не так');
   }
 });
-export const putAssetToUser = createAsyncThunk<void, {userId: string, assets: IAssetModel[]}, {rejectValue:string}>('user/putAssetToUser', async ({ userId, assets }, thunkApi) => {
+export const putAssetToUser = createAsyncThunk<void, {userId: string, assets: IAssetModelShort[]}, {rejectValue:string}>('user/putAssetToUser', async ({ userId, assets }, thunkApi) => {
   try {
     const response = await axios.patch(`/users/${userId}`, { assets });
     return response.data;

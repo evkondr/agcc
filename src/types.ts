@@ -9,7 +9,7 @@ export interface IUser{
   city:string;
   fullName: string;
   // eslint-disable-next-line no-use-before-define
-  assets: IAssetModel[] | []
+  assets: IAssetModelShort [] | []
 }
 export interface IHistory{
   id?:string,
@@ -32,6 +32,12 @@ export interface IAssetModel{
   history: IHistory[],
   status:assetStatus,
   city:string
+}
+export interface IAssetModelShort{
+  id?:string,
+  type:string,
+  model:string,
+  serialNumber:string,
 }
 export interface ICity{
   id:string,

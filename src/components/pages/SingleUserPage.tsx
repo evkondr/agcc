@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import UserForm from '../users/UserForm';
 import { fetchUserById } from '../../redux/features/thunks/userThunks';
-import AssetsTable from '../assets/AssetsTable';
+import ShortAssetsTable from '../assets/ShortAssetsTable';
 
 const SingleUserPage = () => {
   const { userID } = useParams();
@@ -30,7 +30,8 @@ const SingleUserPage = () => {
   return (
     <div>
       <UserForm user={currentUser} />
-      {currentUser && currentUser.assets.length > 0 && <AssetsTable assets={currentUser.assets} />}
+      {currentUser
+      && currentUser.assets.length > 0 && <ShortAssetsTable assets={currentUser.assets} />}
     </div>
   );
 };
