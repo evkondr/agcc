@@ -1,11 +1,13 @@
 /* eslint-disable no-param-reassign */
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import {
+  addNewUser,
   fetchAllUsers,
   fetchUserById,
   fetchUsersByLocation,
   findUsersByFullName,
   putAssetToUser,
+  updateCurrentUser,
 } from './thunks/userThunks';
 
 import { IUser } from '../../types';
@@ -28,34 +30,7 @@ const initialState: usersState = {
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {
-    findUserBySurname: (state, action: PayloadAction<string>) => {
-      state.foundUsers = state.users.filter((user) => user.surname === action.payload);
-    },
-    getUsersByLocation: (state, action: PayloadAction<string>) => {
-      state.foundUsers = state.users.filter((user) => user.city === action.payload);
-    },
-    addNewUser: (state, action: PayloadAction<IUser>) => {
-      state.users.push(action.payload);
-    },
-    getUserById: (state, action: PayloadAction<string>) => {
-      state.currentUser = state.users.find((user) => user.id === action.payload);
-    },
-    updateCurrentUser: (state, action: PayloadAction<{id:string, userData: IUser}>) => {
-      const { id, userData } = action.payload;
-      const newUsersState = state.users.map((user) => {
-        if (user.id === action.payload.id) {
-          user = { id, ...userData };
-          return user;
-        }
-        return user;
-      });
-      state.users = newUsersState;
-    },
-    clearCurrentUser: (state) => {
-      state.currentUser = undefined;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     // Fetching all users
     builder.addCase(fetchAllUsers.pending, (state) => {
@@ -106,7 +81,7 @@ export const usersSlice = createSlice({
       state.loading = false;
       state.error = action.payload as string;
     });
-    // fetching users by location
+    // FETCH USERS BY LOCATION
     builder.addCase(fetchUsersByLocation.pending, (state) => {
       state.loading = true;
     });
@@ -118,12 +93,31 @@ export const usersSlice = createSlice({
       state.loading = false;
       state.error = payload as string;
     });
+    // ADD NEW USER
+    builder.addCase(addNewUser.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(addNewUser.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      state.users.push(payload);
+    });
+    builder.addCase(addNewUser.rejected, (state, { payload }) => {
+      state.loading = false;
+      state.error = payload as string;
+    });
+    // UPDATE CURRENT USER
+    builder.addCase(updateCurrentUser.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateCurrentUser.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      state.currentUser = payload;
+    });
+    builder.addCase(updateCurrentUser.rejected, (state, { payload }) => {
+      state.loading = false;
+      state.error = payload as string;
+    });
   },
 });
-
-export const {
-  findUserBySurname,
-  getUsersByLocation, addNewUser, getUserById, clearCurrentUser, updateCurrentUser,
-} = usersSlice.actions;
 
 export default usersSlice.reducer;

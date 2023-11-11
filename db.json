@@ -243,8 +243,8 @@
       "name": "Иван",
       "secondName": "Иванович",
       "surname": "Иванов",
-      "email": "user@mail.ru",
-      "city": "Москва",
+      "email": "ivanov@mail.ru",
+      "city": "Свободный",
       "fullName": "Иванов Иван Иванович",
       "assets": []
     },
@@ -266,14 +266,7 @@
       "email": "user@mail.ru",
       "city": "Свободный",
       "fullName": "Петров Петр Петрович",
-      "assets": [
-        {
-          "id": "3",
-          "type": "Монитор",
-          "model": "Lenovo ThinkVision T2",
-          "serialNumber": "VNA3031A506673"
-        }
-      ]
+      "assets": []
     },
     {
       "id": "4",
@@ -294,6 +287,15 @@
       "city": "Москва",
       "fullName": "Решалов Равиль Решатович",
       "assets": []
+    },
+    {
+      "surname": "Ван-Дам",
+      "name": "Жан",
+      "secondName": "Клодович",
+      "email": "jcvd@gmail.com",
+      "city": "Москва",
+      "assets": [],
+      "id": "5F2TcS2"
     }
   ],
   "cities": [

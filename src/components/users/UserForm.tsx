@@ -1,43 +1,52 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/require-default-props */
 import {
   Form, Input, Select, Button,
 } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { IUser } from '../../types';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { addNewUser, updateCurrentUser } from '../../redux/features/userSlice';
+import { ICity, IUser } from '../../types';
+import { useAppDispatch } from '../../redux/hooks';
+import { addNewUser, updateCurrentUser } from '../../redux/features/thunks/userThunks';
 
 interface UserFormProps{
   user?:IUser
+  cities: ICity[]
 }
 const UserForm = (props: UserFormProps) => {
+  const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   let userValues: IUser | object = {};
-  const { user } = props;
+  const { user, cities } = props;
   const [disabled, setDisabled] = useState<boolean>(false);
+  let userUpdates:object = {};
   if (user) {
     // If user provided, then use its values
     userValues = user;
   }
+  const onValuesChange = (values:object) => {
+    // Add only updated user data
+    userUpdates = { ...userUpdates, ...values };
+  };
   const onFinish = (values:IUser) => {
     if (user) {
       // If user provided, then it may be updated
-      dispatch(updateCurrentUser({ id: user.id as string, userData: { ...values, assets: [] } }));
+      dispatch(updateCurrentUser({ userId: user.id as string, updates: userUpdates }));
       setDisabled(true);
     } else {
       // Else it may be created
-      dispatch(addNewUser({ ...values, id: uuidv4(), assets: [] }));
+      const newUser = { ...values, assets: [] };
+      dispatch(addNewUser(newUser));
+      form.resetFields();
     }
   };
-  const { cities } = useAppSelector((state) => state.cities);
   useEffect(() => {
     if (user) {
       setDisabled(true);
     }
   }, [user]);
   return (
-    <Form layout="vertical" style={{ maxWidth: '350px' }} initialValues={userValues} onFinish={onFinish} disabled={disabled}>
+    <Form form={form} onValuesChange={onValuesChange} layout="vertical" style={{ maxWidth: '350px' }} initialValues={userValues} onFinish={onFinish} disabled={disabled}>
       <Form.Item name="surname" label="Фамилия">
         <Input />
       </Form.Item>
