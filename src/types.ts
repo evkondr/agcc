@@ -19,9 +19,9 @@ export interface IHistory{
   lastModified:string
 }
 export enum assetStatus{
-  notConfirmed = 'Не подтверждено',
-  confirmed = 'Подтверждено',
-  notAssigned = 'Не назначено'
+  warehouse = 'Склад',
+  assigned = 'Назначено',
+  repair = 'В ремонте'
 }
 export interface IAssetModel{
   id?:string,

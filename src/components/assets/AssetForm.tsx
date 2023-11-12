@@ -14,6 +14,7 @@ import {
 } from 'antd';
 
 import { v4 as uuidv4 } from 'uuid';
+import { isLabeledStatement } from 'typescript';
 import HistoryTable from './HistoryTable';
 import {
   IAssetModel, IAssetModelShort, ICity, IUser, assetStatus,
@@ -36,6 +37,11 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { foundUsers } = useAppSelector((state) => state.users);
   const { currentOwner } = useAppSelector((state) => state.assets);
+  const statusOptions = [assetStatus.warehouse, assetStatus.assigned, assetStatus.repair]
+    .map((item) => ({
+      value: item,
+      label: item,
+    }));
   const usersOptions = foundUsers.map((item:IUser) => ({
     value: item.fullName,
     label: item.fullName,
@@ -101,8 +107,6 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
       form.resetFields();
       const newAsset:IAssetModel = {
         ...values,
-        id: uuidv4(),
-        status: assetStatus.notAssigned,
         history: [{
           id: uuidv4(),
           owner: 'склад',
@@ -148,6 +152,13 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
         </Form.Item>
         <Form.Item label="Расположение" name="owner">
           <Select showSearch onSearch={onSearch} options={usersOptions} onChange={onChange} />
+        </Form.Item>
+        <Form.Item label="Статус" name="status" initialValue={assetStatus.warehouse}>
+          <Select
+            options={
+            statusOptions
+          }
+          />
         </Form.Item>
         <Form.Item>
           <Row justify="space-between">
