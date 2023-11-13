@@ -11,21 +11,23 @@ import {
   Input,
   Select,
   Row,
+  notification,
 } from 'antd';
 
 import { v4 as uuidv4 } from 'uuid';
 import { isLabeledStatement } from 'typescript';
 import HistoryTable from './HistoryTable';
 import {
-  IAssetModel, IAssetModelShort, ICity, IUser, assetStatus,
+  IAssetModel, IAssetModelShort, ICity, IModelType, IUser, assetStatus,
 } from '../../types';
 import {
-  addNewAsset, deleteAsset, fetchCurrentAssetOwner, updateAsset,
+  addNewAsset, deleteAsset, fetchCurrentAssetOwner, fetchModelTypes, updateAsset,
 } from '../../redux/features/thunks/assetThunks';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import CustomModal from '../CustomModal';
 import { findUsersByFullName, putAssetToUser } from '../../redux/features/thunks/userThunks';
 import filterUserAssets from '../../uitls/filterUserAssets';
+import openNotification from '../../uitls/openNotification';
 
 interface IAssetFormProps {
   currentAsset?:IAssetModel;
@@ -35,8 +37,9 @@ interface IAssetFormProps {
 const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   const [disabled, setDisabled] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [api, contextHolder] = notification.useNotification();
   const { foundUsers } = useAppSelector((state) => state.users);
-  const { currentOwner } = useAppSelector((state) => state.assets);
+  const { currentOwner, modelTypes } = useAppSelector((state) => state.assets);
   const statusOptions = [assetStatus.warehouse, assetStatus.assigned, assetStatus.repair]
     .map((item) => ({
       value: item,
@@ -45,6 +48,10 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   const usersOptions = foundUsers.map((item:IUser) => ({
     value: item.fullName,
     label: item.fullName,
+  }));
+  const modelTypesOptions = modelTypes.map((item:IModelType) => ({
+    value: item.name,
+    label: item.name,
   }));
   const navigate = useNavigate();
   const citiesOptions = cities.map((item:ICity) => ({ value: item.name, label: item.name }));
@@ -70,6 +77,12 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   // Handle click Cancel on modal
   const hamdleCancel = () => {
     setIsModalOpen(false);
+  };
+  const handleRemove = () => {
+    if (currentAsset && currentAsset.owner) {
+      return openNotification(api, 'error', 'Внимание!', 'Вы не можете удалить актив, пока он назначен на пользователя', 'top');
+    }
+    setIsModalOpen(true);
   };
   // Submit form handler
   const onFinish = (values:IAssetModel) => {
@@ -119,6 +132,7 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
     }
   };
   useEffect(() => {
+    dispatch(fetchModelTypes());
     if (currentAsset) {
       setDisabled(true);
     }
@@ -130,6 +144,7 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   }, [currentAsset, dispatch]);
   return (
     <>
+      {contextHolder}
       <Form
         layout="vertical"
         style={{ maxWidth: '350px' }}
@@ -142,7 +157,7 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
           <Input />
         </Form.Item>
         <Form.Item label="Тип" name="type">
-          <Input />
+          <Select showSearch options={modelTypesOptions} />
         </Form.Item>
         <Form.Item label="Серийный номер" name="serialNumber">
           <Input />
@@ -172,7 +187,7 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
               >
                 {disabled ? 'Редактировать' : 'Отменить'}
               </Button>
-              <Button type="primary" danger onClick={() => setIsModalOpen(true)}>
+              <Button type="primary" danger onClick={handleRemove}>
                 Удалить
               </Button>
             </>

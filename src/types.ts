@@ -43,3 +43,7 @@ export interface ICity{
   id:string,
   name:string,
 }
+export interface IModelType{
+  id:string,
+  name:string,
+}

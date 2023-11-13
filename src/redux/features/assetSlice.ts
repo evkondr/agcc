@@ -8,10 +8,11 @@ import {
   fetchAssetById,
   fetchAssetsByLocation,
   fetchCurrentAssetOwner,
+  fetchModelTypes,
   updateAsset,
 } from './thunks/assetThunks';
 
-import { IAssetModel, IUser } from '../../types';
+import { IAssetModel, IModelType, IUser } from '../../types';
 
 interface assetsState {
   assets: IAssetModel[],
@@ -19,6 +20,7 @@ interface assetsState {
   currentOwner: IUser | null,
   loading: boolean,
   error: null | string,
+  modelTypes:IModelType[]
 }
 
 const initialState: assetsState = {
@@ -27,6 +29,7 @@ const initialState: assetsState = {
   loading: false,
   error: null,
   currentOwner: null,
+  modelTypes: [],
 };
 export const assetsSlice = createSlice({
   name: 'assets',
@@ -123,6 +126,13 @@ export const assetsSlice = createSlice({
     });
     builder.addCase(fetchAssetsByLocation.rejected, (state, { payload }) => {
       state.loading = false;
+      state.error = payload as string;
+    });
+    // FETCH MODEL TYPES
+    builder.addCase(fetchModelTypes.fulfilled, (state, { payload }) => {
+      state.modelTypes = payload;
+    });
+    builder.addCase(fetchModelTypes.rejected, (state, { payload }) => {
       state.error = payload as string;
     });
   },

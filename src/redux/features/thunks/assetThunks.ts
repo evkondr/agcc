@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { IAssetModel, IUser } from '../../../types';
+import { IAssetModel, IModelType, IUser } from '../../../types';
 
 export const fetchAllAssets = createAsyncThunk<IAssetModel[], undefined, {rejectValue: string}>('assets/fetchAllAssets', async (_, thunkApi) => {
   try {
@@ -71,6 +71,17 @@ export const fetchCurrentAssetOwner = createAsyncThunk<IUser, string, {rejectVal
 export const fetchAssetsByLocation = createAsyncThunk<IAssetModel[], string, {rejectValue: string}>('assets/fetchAssetsByLocation', async (location, thunkApi) => {
   try {
     const response = await axios.get(`/assets?city=${location}`);
+    return response.data;
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      return thunkApi.rejectWithValue(e.message);
+    }
+    return thunkApi.rejectWithValue('Ошибка запроса');
+  }
+});
+export const fetchModelTypes = createAsyncThunk<IModelType[], undefined, {rejectValue: string}>('assets/fetchModelTypes', async (_, thunkApi) => {
+  try {
+    const response = await axios.get('/model-types');
     return response.data;
   } catch (e) {
     if (axios.isAxiosError(e)) {
