@@ -83,17 +83,6 @@
       "approvement": false
     },
     {
-      "id": "3",
-      "name": "Петр",
-      "secondName": "Петрович",
-      "surname": "Петров",
-      "email": "user@mail.ru",
-      "city": "Свободный",
-      "fullName": "Петров Петр Петрович",
-      "assets": [],
-      "approvement": false
-    },
-    {
       "id": "4",
       "name": "Роман",
       "secondName": "Аркадьевич",

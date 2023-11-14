@@ -86,3 +86,15 @@ export const updateCurrentUser = createAsyncThunk<IUser, {userId:string, updates
     return thunkApi.rejectWithValue('Что-то пошло не так');
   }
 });
+// DELETE CURRENT USER
+export const deleteCurrentUser = createAsyncThunk<IUser, string, {rejectValue:string}>('users/deleteCurentUser', async (userId, thunkApi) => {
+  try {
+    const response = await axios.delete(`/users/${userId}`);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+    return thunkApi.rejectWithValue('Что-то пошло не так');
+  }
+});

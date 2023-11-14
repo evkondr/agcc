@@ -2,6 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   addNewUser,
+  deleteCurrentUser,
   fetchAllUsers,
   fetchUserById,
   fetchUsersByLocation,
@@ -114,6 +115,17 @@ export const usersSlice = createSlice({
       state.currentUser = payload;
     });
     builder.addCase(updateCurrentUser.rejected, (state, { payload }) => {
+      state.loading = false;
+      state.error = payload as string;
+    });
+    // DELETE CURRENT USER
+    builder.addCase(deleteCurrentUser.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteCurrentUser.fulfilled, (state) => {
+      state.loading = false;
+    });
+    builder.addCase(deleteCurrentUser.rejected, (state, { payload }) => {
       state.loading = false;
       state.error = payload as string;
     });
