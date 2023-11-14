@@ -68,7 +68,8 @@
       "email": "ivanov@mail.ru",
       "city": "Свободный",
       "fullName": "Иванов Иван Иванович",
-      "assets": []
+      "assets": [],
+      "approvement": false
     },
     {
       "id": "2",
@@ -78,7 +79,8 @@
       "email": "user@mail.ru",
       "city": "Москва",
       "fullName": "Иванов Сергей Петроаич",
-      "assets": []
+      "assets": [],
+      "approvement": false
     },
     {
       "id": "3",
@@ -88,7 +90,8 @@
       "email": "user@mail.ru",
       "city": "Свободный",
       "fullName": "Петров Петр Петрович",
-      "assets": []
+      "assets": [],
+      "approvement": false
     },
     {
       "id": "4",
@@ -98,7 +101,8 @@
       "email": "user@mail.ru",
       "city": "Свободный",
       "fullName": "Иванов Роман Аркадьевич",
-      "assets": []
+      "assets": [],
+      "approvement": false
     },
     {
       "id": "5",
@@ -115,7 +119,8 @@
           "model": "Lenovo ThinkVision T2",
           "serialNumber": "VNA333111"
         }
-      ]
+      ],
+      "approvement": false
     },
     {
       "surname": "Ван-Дам",
@@ -124,7 +129,8 @@
       "email": "jcvd@gmail.com",
       "city": "Москва",
       "assets": [],
-      "id": "5F2TcS2"
+      "id": "5F2TcS2",
+      "approvement": false
     }
   ],
   "model-types": [

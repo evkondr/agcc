@@ -6,10 +6,11 @@ export interface IUser{
   secondName:string,
   surname:string,
   email:string,
-  city:string;
-  fullName: string;
+  city:string,
+  fullName: string,
   // eslint-disable-next-line no-use-before-define
-  assets: IAssetModelShort [] | []
+  assets: IAssetModelShort [] | [],
+  approvement: boolean;
 }
 export interface IHistory{
   id?:string,
