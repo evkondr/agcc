@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import AssetsTable from '../assets/AssetsTable';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchAllAssets, fetchAssetsByLocation } from '../../redux/features/thunks/assetThunks';
+import SearchForm from '../SearchForm';
 
 const AssetsPage = () => {
   const [searchParams] = useSearchParams();
@@ -38,7 +39,10 @@ const AssetsPage = () => {
     );
   }
   return (
-    <AssetsTable assets={assets} />
+    <>
+      <SearchForm />
+      <AssetsTable assets={assets} />
+    </>
   );
 };
 

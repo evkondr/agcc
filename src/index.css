@@ -81,6 +81,12 @@ code {
 .home-page-nav__item svg{
   font-size: 30px;
 }
+.search-form{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding-bottom: 20px;
+}
 
 @media screen and (max-width: 1200px) {
   .main{
