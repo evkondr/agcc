@@ -7,6 +7,7 @@ import UserForm from '../users/UserForm';
 import { fetchUserById } from '../../redux/features/thunks/userThunks';
 import ShortAssetsTable from '../assets/ShortAssetsTable';
 import fetchAllCities from '../../redux/features/thunks/cityThunks';
+import Loader from '../Loader';
 
 const SingleUserPage = () => {
   const { userID } = useParams();
@@ -19,9 +20,7 @@ const SingleUserPage = () => {
   }, [dispatch, userID]);
   if (loading) {
     return (
-      <div>
-        Загрузка...
-      </div>
+      <Loader />
     );
   }
   if (error) {

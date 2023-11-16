@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import AssetFrom from '../assets/AssetForm';
 import { fetchAssetById } from '../../redux/features/thunks/assetThunks';
 import fetchAllCities from '../../redux/features/thunks/cityThunks';
+import Loader from '../Loader';
 
 const SingleAssetPage = () => {
   const { id } = useParams();
@@ -18,9 +19,7 @@ const SingleAssetPage = () => {
   }, [dispatch, id]);
   if (loading) {
     return (
-      <div>
-        Загрузка...
-      </div>
+      <Loader />
     );
   }
   if (error) {

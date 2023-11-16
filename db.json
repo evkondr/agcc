@@ -37,9 +37,16 @@
           "comments": "Создал",
           "date": "12.11.2023, 22:44:24",
           "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Иванов Сергей Петроаич",
+          "date": "16.11.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
         }
       ],
-      "id": 2
+      "id": 2,
+      "owner": "Иванов Сергей Петроаич"
     },
     {
       "model": "LenovoThinkPad X500",
@@ -79,7 +86,14 @@
       "email": "user@mail.ru",
       "city": "Москва",
       "fullName": "Иванов Сергей Петроаич",
-      "assets": [],
+      "assets": [
+        {
+          "id": 2,
+          "type": "Монитор",
+          "model": "Lenovo ThinkVision T2",
+          "serialNumber": "VNA555111"
+        }
+      ],
       "approvement": false
     },
     {

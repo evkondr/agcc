@@ -79,9 +79,24 @@ export const fetchAssetsByLocation = createAsyncThunk<IAssetModel[], string, {re
     return thunkApi.rejectWithValue('Ошибка запроса');
   }
 });
+// FETCH MODEL TYPES
 export const fetchModelTypes = createAsyncThunk<IModelType[], undefined, {rejectValue: string}>('assets/fetchModelTypes', async (_, thunkApi) => {
   try {
     const response = await axios.get('/model-types');
+    return response.data;
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      return thunkApi.rejectWithValue(e.message);
+    }
+    return thunkApi.rejectWithValue('Ошибка запроса');
+  }
+});
+// SEARCH ASSETS
+export const searchAssets = createAsyncThunk<IAssetModel[], {city?:string, q:string}>('assets/searchAssets', async (searchParams, thunkApi) => {
+  try {
+    const response = await axios.get('/assets', {
+      params: searchParams,
+    });
     return response.data;
   } catch (e) {
     if (axios.isAxiosError(e)) {

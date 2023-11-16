@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import UsersTable from '../users/UsersTable';
 import { fetchAllUsers, fetchUsersByLocation } from '../../redux/features/thunks/userThunks';
+import Loader from '../Loader';
 
 const UsersPage = () => {
   const [searchParams] = useSearchParams();
@@ -17,7 +18,9 @@ const UsersPage = () => {
     }
   }, [location, dispatch, searchParams]);
   if (loading) {
-    return <div>Загрузка...</div>;
+    return (
+      <Loader />
+    );
   }
   return (
     <UsersTable users={users} />

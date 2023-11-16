@@ -9,6 +9,7 @@ import {
   fetchAssetsByLocation,
   fetchCurrentAssetOwner,
   fetchModelTypes,
+  searchAssets,
   updateAsset,
 } from './thunks/assetThunks';
 
@@ -134,6 +135,14 @@ export const assetsSlice = createSlice({
     });
     builder.addCase(fetchModelTypes.rejected, (state, { payload }) => {
       state.error = payload as string;
+    });
+    // FETCH MODEL TYPES
+    builder.addCase(searchAssets.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(searchAssets.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      state.assets = payload;
     });
   },
 });

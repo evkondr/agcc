@@ -39,5 +39,6 @@ module.exports = {
     'linebreak-style': 0,
     'react/function-component-definition': 0,
     'arrow-body-style': 0,
+    'react/require-default-props': 0,
   },
 };
