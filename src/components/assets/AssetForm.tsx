@@ -15,10 +15,9 @@ import {
 } from 'antd';
 
 import { v4 as uuidv4 } from 'uuid';
-import { isLabeledStatement } from 'typescript';
 import HistoryTable from './HistoryTable';
 import {
-  IAssetModel, IAssetModelShort, ICity, IModelType, IUser, assetStatus,
+  IAssetModel, IAssetModelShort, ICity, IModelType, IUser, assetStatus, IAssetModelUpdates,
 } from '../../types';
 import {
   addNewAsset, deleteAsset, fetchCurrentAssetOwner, fetchModelTypes, updateAsset,
@@ -40,11 +39,6 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   const [api, contextHolder] = notification.useNotification();
   const { foundUsers } = useAppSelector((state) => state.users);
   const { currentOwner, modelTypes } = useAppSelector((state) => state.assets);
-  const statusOptions = [assetStatus.warehouse, assetStatus.assigned, assetStatus.repair]
-    .map((item) => ({
-      value: item,
-      label: item,
-    }));
   const usersOptions = foundUsers.map((item:IUser) => ({
     value: item.fullName,
     label: item.fullName,
@@ -57,14 +51,18 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   const citiesOptions = cities.map((item:ICity) => ({ value: item.name, label: item.name }));
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
+  const [assetUpdates, setAssetUpdates] = useState<IAssetModelUpdates>({});
   // On user search
   const onSearch = (value: string) => {
     // TODO: validation
     dispatch(findUsersByFullName(value));
   };
   // On user change
-  const onChange = (value: string) => {
-    dispatch(findUsersByFullName(value));
+  const onOwnerChange = (value: string) => {
+    if (value !== currentAsset?.owner) {
+      setAssetUpdates({ ...assetUpdates, owner: value });
+      dispatch(findUsersByFullName(value));
+    }
   };
   // Handle click Ok on modal
   const handleOk = () => {
@@ -86,55 +84,57 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   };
   // Submit form handler
   const onFinish = (values:IAssetModel) => {
+    const newAsset:IAssetModel = {
+      ...values,
+      id: uuidv4(),
+      history: [{
+        id: uuidv4(),
+        owner: 'склад',
+        comments: 'Создал',
+        date: new Date().toLocaleString(),
+        lastModified: loggedUser as string,
+      }],
+    };
+    dispatch(addNewAsset(newAsset));
+    form.resetFields();
+  };
+  const onFormValuesChange = (values:IAssetModelUpdates) => {
+    // Add only updated asset data
+    setAssetUpdates({ ...assetUpdates, ...values });
+  };
+  const updateHandler = (values:IAssetModelUpdates) => {
     if (currentAsset) {
-      // If asset provided, then it may be updated
-      let owner:string;
-      const { id, assets } = foundUsers[0];
+      const { id, assets, fullName } = foundUsers[0];
       const assetToAdd:IAssetModelShort = {
         id: currentAsset.id,
         type: currentAsset.type,
         model: currentAsset.model,
         serialNumber: currentAsset.serialNumber,
       };
-      if (currentAsset.history.length > 0) {
-        owner = values.owner as string;
-      } else {
-        owner = 'склад';
-      }
-      const assetUpdates:IAssetModel = {
+      const history = [...currentAsset.history, {
+        owner: fullName, date: new Date().toLocaleDateString(), comments: 'обновлен', lastModified: loggedUser as string,
+      }];
+      const newAssetUpdates = {
         ...values,
-        history: [...currentAsset.history, {
-          owner, date: new Date().toLocaleDateString(), comments: 'обновлен', lastModified: loggedUser as string,
-        }],
+        status: assetStatus.assigned,
+        history,
       };
-      if (currentOwner && currentAsset.id) {
-        // If owner was changed
+      if (currentOwner && currentAsset.id && currentOwner.fullName !== values.owner) {
+      // If owner was changed
+      // Then filter assets of previous user
         const filtredAssets = filterUserAssets(currentOwner?.assets, currentAsset.id);
         dispatch(putAssetToUser({ userId: currentOwner.id as string, assets: filtredAssets }));
       }
-      dispatch(updateAsset({ id: currentAsset.id, ...assetUpdates }));
+      dispatch(updateAsset({ assetID: currentAsset.id as string, assetUpdates: newAssetUpdates }));
       dispatch(putAssetToUser({ userId: id as string, assets: [...assets, assetToAdd] }));
       setDisabled(true);
-    } else {
-      // Else it may be created
-      form.resetFields();
-      const newAsset:IAssetModel = {
-        ...values,
-        history: [{
-          id: uuidv4(),
-          owner: 'склад',
-          comments: 'Создал',
-          date: new Date().toLocaleString(),
-          lastModified: loggedUser as string,
-        }],
-      };
-      dispatch(addNewAsset(newAsset));
     }
   };
   useEffect(() => {
     dispatch(fetchModelTypes());
     if (currentAsset) {
       setDisabled(true);
+      dispatch(findUsersByFullName(currentAsset?.owner));
     }
     return () => {
       if (currentAsset) {
@@ -145,6 +145,33 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   return (
     <>
       {contextHolder}
+      <Row>
+        <h2>{currentAsset?.model}</h2>
+      </Row>
+      {currentAsset && (
+      <Row>
+        <p style={{ fontSize: 20 }}>
+          Статус:
+          {' '}
+          <span>{currentAsset?.status}</span>
+        </p>
+      </Row>
+      )}
+      {currentAsset && (
+      <Row className="asset-buttons-container">
+        <Button htmlType="button" disabled={disabled} onClick={() => updateHandler(assetUpdates)}>Обновить</Button>
+        <Button
+          htmlType="button"
+          onClick={() => setDisabled(!disabled)}
+          disabled={false}
+        >
+          {disabled ? 'Редактировать' : 'Отменить'}
+        </Button>
+        <Button type="primary" danger onClick={handleRemove}>
+          Удалить
+        </Button>
+      </Row>
+      )}
       <Form
         layout="vertical"
         style={{ maxWidth: '350px' }}
@@ -152,6 +179,7 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
         disabled={disabled}
         onFinish={onFinish}
         form={form}
+        onValuesChange={onFormValuesChange}
       >
         <Form.Item label="Модель" name="model">
           <Input />
@@ -166,34 +194,18 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
           <Select placeholder="Выбрать город" options={citiesOptions} />
         </Form.Item>
         <Form.Item label="Расположение" name="owner">
-          <Select showSearch onSearch={onSearch} options={usersOptions} onChange={onChange} />
-        </Form.Item>
-        <Form.Item label="Статус" name="status" initialValue={assetStatus.warehouse}>
           <Select
-            options={
-            statusOptions
-          }
+            showSearch
+            onSearch={onSearch}
+            options={usersOptions}
+            onChange={onOwnerChange}
           />
         </Form.Item>
-        <Form.Item>
-          <Row justify="space-between">
-            <Button htmlType="submit">{currentAsset ? 'Обновить' : 'Создать'}</Button>
-            {currentAsset && (
-            <>
-              <Button
-                htmlType="button"
-                onClick={() => setDisabled(!disabled)}
-                disabled={false}
-              >
-                {disabled ? 'Редактировать' : 'Отменить'}
-              </Button>
-              <Button type="primary" danger onClick={handleRemove}>
-                Удалить
-              </Button>
-            </>
-            )}
-          </Row>
-        </Form.Item>
+        {!currentAsset && (
+        <Row>
+          <Button htmlType="submit">Создать</Button>
+        </Row>
+        )}
       </Form>
       <Row>
         {currentAsset && currentAsset.history && currentAsset.history.length > 0

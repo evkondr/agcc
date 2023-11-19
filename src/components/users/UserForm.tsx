@@ -46,7 +46,6 @@ const UserForm = (props: UserFormProps) => {
     setIsModalOpen(false);
   };
   const handleRemove = () => {
-    console.log();
     if (user && user.assets.length > 0) {
       return openNotification(api, 'error', 'Внимание!', 'Вы не можете удалить пользователя, пока на нем числится оборудование', 'top');
     }
