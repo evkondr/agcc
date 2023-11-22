@@ -12,6 +12,8 @@ export interface IUser{
   assets: IAssetModelShort [] | [],
   approvement: boolean;
 }
+export type TUserUpdates = Partial<IUser>
+
 export interface IHistory{
   id?:string,
   owner: string;
@@ -34,16 +36,8 @@ export interface IAssetModel{
   status:assetStatus,
   city:string
 }
-export interface IAssetModelUpdates{
-  id?:string,
-  type?:string,
-  model?:string,
-  serialNumber?:string,
-  owner?: string,
-  history?: IHistory[],
-  status?:assetStatus,
-  city?:string
-}
+export type TAssetModelUpdates = Partial<IAssetModel>
+
 export interface IAssetModelShort{
   id?:string,
   type:string,

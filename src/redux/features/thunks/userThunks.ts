@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { IUser, IAssetModelShort } from '../../../types';
+import { IUser, IAssetModelShort, TUserUpdates } from '../../../types';
 
 // FETCH ALL USERS
 export const fetchAllUsers = createAsyncThunk<IUser[], undefined, {rejectValue:string}>('users/fetchAllUsers', async (_, thunkApi) => {
@@ -75,7 +75,7 @@ export const addNewUser = createAsyncThunk<IUser, IUser, {rejectValue:string}>('
   }
 });
 // UPDATE CURRENT USER
-export const updateCurrentUser = createAsyncThunk<IUser, {userId:string, updates:object}, {rejectValue:string}>('users/updateUser', async ({ userId, updates }, thunkApi) => {
+export const updateCurrentUser = createAsyncThunk<IUser, {userId:string, updates:TUserUpdates}, {rejectValue:string}>('users/updateUser', async ({ userId, updates }, thunkApi) => {
   try {
     const response = await axios.patch(`/users/${userId}`, updates);
     return response.data;

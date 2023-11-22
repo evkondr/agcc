@@ -17,7 +17,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import HistoryTable from './HistoryTable';
 import {
-  IAssetModel, IAssetModelShort, ICity, IModelType, IUser, assetStatus, IAssetModelUpdates,
+  IAssetModel, IAssetModelShort, ICity, IModelType, IUser, assetStatus, TAssetModelUpdates,
 } from '../../types';
 import {
   addNewAsset, deleteAsset, fetchCurrentAssetOwner, fetchModelTypes, updateAsset,
@@ -51,7 +51,7 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
   const citiesOptions = cities.map((item:ICity) => ({ value: item.name, label: item.name }));
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
-  const [assetUpdates, setAssetUpdates] = useState<IAssetModelUpdates>({});
+  const [assetUpdates, setAssetUpdates] = useState<TAssetModelUpdates>({});
   // On user search
   const onSearch = (value: string) => {
     // TODO: validation
@@ -98,11 +98,11 @@ const AssetForm = ({ currentAsset, loggedUser, cities }: IAssetFormProps) => {
     dispatch(addNewAsset(newAsset));
     form.resetFields();
   };
-  const onFormValuesChange = (values:IAssetModelUpdates) => {
+  const onFormValuesChange = (values:TAssetModelUpdates) => {
     // Add only updated asset data
     setAssetUpdates({ ...assetUpdates, ...values });
   };
-  const updateHandler = (values:IAssetModelUpdates) => {
+  const updateHandler = (values:TAssetModelUpdates) => {
     if (currentAsset) {
       const { id, assets, fullName } = foundUsers[0];
       const assetToAdd:IAssetModelShort = {

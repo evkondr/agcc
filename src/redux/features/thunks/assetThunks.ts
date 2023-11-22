@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import {
-  IAssetModel, IAssetModelUpdates, IModelType, IUser,
+  IAssetModel, TAssetModelUpdates, IModelType, IUser,
 } from '../../../types';
 
 export const fetchAllAssets = createAsyncThunk<IAssetModel[], undefined, {rejectValue: string}>('assets/fetchAllAssets', async (_, thunkApi) => {
@@ -48,7 +48,7 @@ export const deleteAsset = createAsyncThunk<IAssetModel, string, {rejectValue: s
     return thunkApi.rejectWithValue('Ошибка запроса');
   }
 });
-export const updateAsset = createAsyncThunk<IAssetModel, {assetID: string, assetUpdates: IAssetModelUpdates }, {rejectValue: string}>('asset/updateAsset', async (updates, thunkApi) => {
+export const updateAsset = createAsyncThunk<IAssetModel, {assetID: string, assetUpdates: TAssetModelUpdates }, {rejectValue: string}>('asset/updateAsset', async (updates, thunkApi) => {
   try {
     const response = await axios.patch(`/assets/${updates.assetID}`, updates.assetUpdates);
     return response.data;

@@ -6,7 +6,7 @@ import {
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ICity, IUser } from '../../types';
+import { ICity, IUser, TUserUpdates } from '../../types';
 import { useAppDispatch } from '../../redux/hooks';
 import { addNewUser, deleteCurrentUser, updateCurrentUser } from '../../redux/features/thunks/userThunks';
 import CustomModal from '../CustomModal';
@@ -30,7 +30,7 @@ const UserForm = (props: UserFormProps) => {
     // If user provided, then use its values
     userValues = user;
   }
-  const onValuesChange = (values:object) => {
+  const onValuesChange = (values:TUserUpdates) => {
     // Add only updated user data
     userUpdates = { ...userUpdates, ...values };
   };
