@@ -1,24 +1,32 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import { Layout } from 'antd';
-import { NavLink, Outlet } from 'react-router-dom';
-import Logo from './images/logo.png';
-import LeftSidebar from './components/LeftSidebar';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import LeftSidebar from './components/layout/LeftSidebar';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
+import TopHeader from './components/layout/Header';
+import { getDemoToken } from './redux/features/authSlice';
 
 const {
-  Header, Content,
+  Content,
 } = Layout;
 function App() {
+  const [contentMargin, setContentMargin] = useState<number>(200);
+  const { demoToken } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+  useEffect(() => {
+    dispatch(getDemoToken());
+  }, [dispatch]);
+  if (!demoToken) {
+    return <Navigate to="authorization" state={{ from: location }} replace />;
+  }
   return (
     <Layout className="main">
-      <Header className="header">
-        <NavLink to="/" className="logo">
-          <img src={Logo} alt="logo" />
-        </NavLink>
-        <h1 className="header__title">Управление ИТ активами</h1>
-      </Header>
+      <TopHeader />
       <Layout hasSider>
-        <LeftSidebar />
-        <Content className="content">
+        <LeftSidebar setContentMargin={setContentMargin} contentMargin={contentMargin} />
+        <Content className="content" style={{ marginLeft: `${contentMargin}px` }}>
           <Outlet />
         </Content>
       </Layout>

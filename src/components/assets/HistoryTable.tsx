@@ -1,22 +1,22 @@
 import React from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { History } from '../db';
+import { IHistory } from '../../types';
 
 interface tableProps {
-  history: History[]
+  history: IHistory[]
 }
 const HistoryTable = ({ history }:tableProps) => {
-  const columns: ColumnsType<History> = [
+  const columns: ColumnsType<IHistory> = [
     {
       title: 'Дата',
       dataIndex: 'date',
       key: 'date',
     },
     {
-      title: 'Прошлое место положение',
-      dataIndex: 'prevOwner',
-      key: 'prevOwner',
+      title: 'Место положение',
+      dataIndex: 'owner',
+      key: 'owner',
     },
     {
       title: 'Комментарий',

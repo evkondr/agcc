@@ -2,18 +2,18 @@ import React from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { NavLink } from 'react-router-dom';
-import { assetModel } from '../db';
+import { IAssetModelShort } from '../../types';
 
 interface tableProps {
-  assets: assetModel[]
+  assets: IAssetModelShort[]
 }
-const AssetsTable = ({ assets }:tableProps) => {
-  const columns: ColumnsType<assetModel> = [
+const ShortAssetsTable = ({ assets }:tableProps) => {
+  const columns: ColumnsType<IAssetModelShort> = [
     {
       title: 'Модель',
       dataIndex: 'model',
       key: 'model',
-      render: (text, record) => <NavLink to={`assets/${record.id}`}>{text}</NavLink>,
+      render: (text, record) => <NavLink to={`/assets/${record.id}`}>{text}</NavLink>,
     },
     {
       title: 'Тип',
@@ -25,20 +25,10 @@ const AssetsTable = ({ assets }:tableProps) => {
       dataIndex: 'serialNumber',
       key: 'serialNumber',
     },
-    {
-      title: 'Расположение',
-      dataIndex: 'owner',
-      key: 'owner',
-    },
-    {
-      title: 'Статус',
-      dataIndex: 'status',
-      key: 'status',
-    },
   ];
   return (
     <Table columns={columns} dataSource={assets} />
   );
 };
 
-export default AssetsTable;
+export default ShortAssetsTable;

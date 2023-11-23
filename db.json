@@ -1,0 +1,229 @@
+{
+  "assets": [
+    {
+      "model": "Lenovo ThinkVision T232",
+      "type": "Монитор",
+      "serialNumber": "VNA111333",
+      "city": "Свободный",
+      "id": "b8be2eac-b8da-439c-aadd-4645f1c30f94",
+      "history": [
+        {
+          "id": "2870b447-d37e-4fe5-9611-797ff24367cd",
+          "owner": "склад",
+          "comments": "Создал",
+          "date": "18.11.2023, 23:20:31",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Решалов Равиль Решатович",
+          "date": "18.11.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Решалов Равиль Решатович",
+          "date": "18.11.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Решалов Равиль Решатович",
+          "date": "19.11.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Решалов Равиль Решатович",
+          "date": "19.11.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Решалов Равиль Решатович",
+          "date": "19.11.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Иванов Иван Иванович",
+          "date": "19.11.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Иванов Иван Иванович",
+          "date": "19.11.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Решалов Равиль Решатович",
+          "date": "19.11.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        }
+      ],
+      "owner": "Решалов Равиль Решатович",
+      "status": "Назначено"
+    },
+    {
+      "model": "Lenovo ThinkPad x 500",
+      "type": "Ноутбук",
+      "serialNumber": "VNA000333",
+      "city": "Москва",
+      "id": "8bcd6640-0646-4c94-974d-d227787ff0dc",
+      "history": [
+        {
+          "id": "f9e20e8c-539a-4512-b4fd-377ff6bc6047",
+          "owner": "склад",
+          "comments": "Создал",
+          "date": "18.11.2023, 23:21:27",
+          "lastModified": "Демо пользователь"
+        }
+      ]
+    },
+    {
+      "model": "Lenovo ThinkVision T2",
+      "type": "Монитор",
+      "serialNumber": "123123",
+      "city": "Москва",
+      "id": "808c461a-6217-4f44-ad5a-77422a51001f",
+      "history": [
+        {
+          "id": "e8252417-f45b-429d-a808-38085ca7ffeb",
+          "owner": "склад",
+          "comments": "Создал",
+          "date": "18.11.2023, 23:38:19",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Решалов Равиль Решатович",
+          "date": "18.11.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        },
+        {
+          "owner": "Решалов Равиль Решатович",
+          "date": "18.11.2023",
+          "comments": "обновлен",
+          "lastModified": "Демо пользователь"
+        }
+      ],
+      "owner": "Решалов Равиль Решатович",
+      "status": "Назначено"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Иван",
+      "secondName": "Иванович",
+      "surname": "Иванов",
+      "email": "ivanov@mail.ru",
+      "city": "Свободный",
+      "fullName": "Иванов Иван Иванович",
+      "assets": [],
+      "approvement": false
+    },
+    {
+      "id": "2",
+      "name": "Сергей",
+      "secondName": "Петрович",
+      "surname": "Иванов",
+      "email": "user@mail.ru",
+      "city": "Москва",
+      "fullName": "Иванов Сергей Петроаич",
+      "assets": [],
+      "approvement": false
+    },
+    {
+      "id": "4",
+      "name": "Роман",
+      "secondName": "Аркадьевич",
+      "surname": "Иванов",
+      "email": "user@mail.ru",
+      "city": "Свободный",
+      "fullName": "Иванов Роман Аркадьевич",
+      "assets": [],
+      "approvement": false
+    },
+    {
+      "id": "5",
+      "name": "Равиль",
+      "secondName": "Решатович",
+      "surname": "Решалов",
+      "email": "user@mail.ru",
+      "city": "Москва",
+      "fullName": "Решалов Равиль Решатович",
+      "assets": [
+        {
+          "id": "808c461a-6217-4f44-ad5a-77422a51001f",
+          "type": "Монитор",
+          "model": "Lenovo ThinkVision T2",
+          "serialNumber": "123123"
+        },
+        {
+          "id": "b8be2eac-b8da-439c-aadd-4645f1c30f94",
+          "type": "Монитор",
+          "model": "Lenovo ThinkVision T232",
+          "serialNumber": "VNA111333"
+        }
+      ],
+      "approvement": false
+    },
+    {
+      "surname": "Ван-Дам",
+      "name": "Жан",
+      "secondName": "Клодович",
+      "email": "jcvd@gmail.com",
+      "city": "Москва",
+      "assets": [],
+      "id": "5F2TcS2",
+      "approvement": false
+    }
+  ],
+  "model-types": [
+    {
+      "id": "1",
+      "name": "Монитор"
+    },
+    {
+      "id": "2",
+      "name": "Ноутбук"
+    },
+    {
+      "id": "3",
+      "name": "Неттоп"
+    },
+    {
+      "id": "4",
+      "name": "Телефон"
+    },
+    {
+      "id": "5",
+      "name": "Гарнитура"
+    },
+    {
+      "id": "6",
+      "name": "Маршрутизатор"
+    },
+    {
+      "id": "7",
+      "name": "Коммутатор"
+    },
+    {
+      "id": "8",
+      "name": "Другое"
+    }
+  ],
+  "cities": [
+    {
+      "id": "1",
+      "name": "Москва"
+    },
+    {
+      "id": "2",
+      "name": "Свободный"
+    }
+  ]
+}
