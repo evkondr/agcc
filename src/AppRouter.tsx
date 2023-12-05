@@ -9,12 +9,17 @@ import SingleAssetPage from './components/pages/SingleAssetPage';
 import AddAssetPage from './components/pages/AddAssetPage';
 import HomePage from './components/pages/HomePage';
 import UsersPage from './components/pages/UsersPage';
+import PageNotFound from './components/pages/PageNotFound';
 
 const AppRouter = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
+      {
+        path: '*',
+        element: <PageNotFound />,
+      },
       {
         path: '/',
         element: <HomePage />,
